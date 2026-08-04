@@ -13,6 +13,9 @@ iframe.addEventListener("load", () => {
     }
 
     doc.body.style.margin = "0";
+    doc.documentElement.style.margin = "0";
+
+    iframe.style.height = `${doc.documentElement.scrollHeight}px`
 });
 
 async function loadTemplates() {
