@@ -2,7 +2,7 @@ node_modules/
 dist/
 
 templates/*.html
-components/*.html
+templates/Components/*.html
 mock/*.json
 
 .env
@@ -14,4 +14,4 @@ mock/*.json
 
 !templates/.gitkeep
 !mock/.gitkeep
-!components/.gitkeep
+!templates/Components/.gitkeep
