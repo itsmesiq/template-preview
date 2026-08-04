@@ -1,6 +1,17 @@
 node_modules/
 dist/
+
+templates/*.html
+components/*.html
+mocks/*.json
+
 .env
 .env.*
+
 .DS_Store
 .vscode/settings.json
+
+
+!templates/.gitkeep
+!mocks/.gitkeep
+!components/.gitkeep
