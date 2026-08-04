@@ -8,13 +8,16 @@ import { parser } from "../parser/parser.js";
 import { Runtime } from "../runtime/index.js";
 import { interpret } from "../interpreter/index.js";
 import { evaluateExpression } from "./evaluateExpression.js";
+import { resolveComponents } from "../loaders/resolveComponents.js";
 
 export async function renderComponent(
     name: string,
     args: Record<string, string>,
     runtime: Runtime,
 ): Promise<string> {
-    const componentPath = path.join(paths.components, `${name}.html`);
+    const component = await resolveComponents(name);
+
+    const componentPath = path.join(paths.templates, component.path);
 
     const template = await readFile(componentPath, "utf-8");
 
