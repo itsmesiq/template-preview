@@ -5,6 +5,16 @@ const autoReload = document.querySelector("#autoreload");
 
 let currentVersion = 0;
 
+iframe.addEventListener("load", () => {
+    const doc = iframe.contentDocument;
+
+    if (!doc) {
+        return;
+    }
+
+    doc.body.style.margin = "0";
+});
+
 async function loadTemplates() {
     const response = await fetch("/api/templates");
     return response.json();    
