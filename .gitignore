@@ -3,7 +3,7 @@ dist/
 
 templates/*.html
 components/*.html
-mocks/*.json
+mock/*.json
 
 .env
 .env.*
@@ -13,5 +13,5 @@ mocks/*.json
 
 
 !templates/.gitkeep
-!mocks/.gitkeep
+!mock/.gitkeep
 !components/.gitkeep
