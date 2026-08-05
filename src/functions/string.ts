@@ -30,6 +30,16 @@ export const stringFunctions = {
         return String(value).length;
     },
 
+    downcase(value: unknown) {
+        const text = String(value);
+
+        if(text.length === 0) {
+            return text;
+        }
+
+        return text.toLowerCase();
+    },
+
     capitalize(value: unknown) {
         const text = String(value);
 
@@ -37,7 +47,7 @@ export const stringFunctions = {
             return text;
         }
 
-        return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+        return text.charAt(0).toUpperCase() + text.slice(1);
     },
 
     capitalizewords(value: unknown) {
