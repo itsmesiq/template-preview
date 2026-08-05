@@ -5,7 +5,16 @@ export function executeCode(code: string, runtime: Runtime): void {
     const statements = splitStatements(code);
 
     for (const statement of statements) {
-        const equals = statement.indexOf("=");
+        if (
+            statement.startsWith("if ") ||
+            statement.startsWith("else") ||
+            statement.startsWith("end") ||
+            statement.startsWith("for ")
+        ) {
+            continue;
+        }
+
+        const equals = findAssignment(statement);
 
         if (equals === -1) {
             continue;
@@ -22,32 +31,31 @@ export function executeCode(code: string, runtime: Runtime): void {
 }
 
 function splitStatements(code: string): string[] {
-    const statements: string[] = [];
-
-    const lines = code
+    return code
         .split("\n")
         .map(line => line.trim())
         .filter(Boolean);
+}
 
-    let current = "";
-
-    for (const line of lines) {
-        if (line.includes("=") && current !== "") {
-            statements.push(current.trim());
-            current = line;
+function findAssignment(statement: string): number {
+    for (let i = 0; i < statement.length; i++) {
+        if (statement[i] !== "=") {
             continue;
         }
 
-        if (current === ""){
-            current = line;
-        } else {
-            current += " " + line;
+        const previous = statement[i - 1];
+        const next = statement[i + 1];
+
+        if (
+            previous === "=" ||
+            previous === "!" ||
+            previous === ">" ||
+            previous === "<" ||
+            next === "="
+        ) {
+            continue;
         }
-    }
-
-    if (current !== "") {
-        statements.push(current.trim());
-    }
-
-    return statements;
+        return i;
+    }   
+    return -1;
 }
