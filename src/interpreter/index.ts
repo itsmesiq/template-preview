@@ -54,10 +54,17 @@ export async function interpret(nodes: Node[], runtime: Runtime): Promise<string
                     break;
                 }
 
-                for (const item of iterable) {
+                for (let index = 0; index < iterable.length; index++) {
                     const child = runtime.child();
-                    child.set(node.variable, item);
-
+                
+                    child.set(node.variable, iterable[index]);
+                
+                    child.set("for", {
+                        index,
+                        first: index === 0,
+                        last: index === iterable.length - 1,
+                    });
+                
                     html += await interpret(node.body, child);
                 }
                 break;

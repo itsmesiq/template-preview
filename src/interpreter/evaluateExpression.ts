@@ -18,6 +18,30 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
         return evaluatePipe(expression, runtime);
     }
 
+    const logicalOr = findLogicalOr(expression);
+
+    if (logicalOr !== -1) {
+        const left = expression.slice(0, logicalOr).trim();
+        const right = expression.slice(logicalOr + 2).trim();
+
+        return Boolean(evaluateExpression(left, runtime))
+            || Boolean(evaluateExpression(right, runtime));
+    }    
+
+    const logicalAnd = findLogicalAnd(expression);
+    
+    if (logicalAnd !== -1) {
+        const left = expression.slice(0, logicalAnd).trim();
+        const right = expression.slice(logicalAnd + 2).trim();
+    
+        return Boolean(evaluateExpression(left, runtime))
+            && Boolean(evaluateExpression(right, runtime));
+    }
+
+    if (isUnaryNot(expression)) {
+        return !Boolean(evaluateExpression(expression.slice(1).trim(), runtime));
+    }
+
     if (expression.includes("??")) {
         const parts = expression.split("??").map(part => part.trim());
 
@@ -158,4 +182,59 @@ function hasPipe(expression: string): boolean {
     }
 
     return false;
+}
+
+function isUnaryNot(expression: string): boolean {
+    return expression.startsWith("!") &&
+        expression.length > 1 &&
+        expression[1] !== "=";
+}
+
+function findLogicalOr(expression: string): number {
+    return findOperator(expression, "||");
+}
+
+function findLogicalAnd(expression: string): number {
+    return findOperator(expression, "&&");
+}
+
+function findOperator(expression: string, operator: string): number {
+    let depth = 0;
+    let quote = "";
+
+    for (let i = 0; i < expression.length - operator.length + 1; i++) {
+        const char = expression[i];
+
+        if (quote) {
+            if (char === quote) {
+                quote = "";
+            }
+
+            continue;
+        }
+
+        if (char === '"' || char === "'") {
+            quote = char;
+            continue;
+        }
+
+        if (char === "(") {
+            depth++;
+            continue;
+        }
+
+        if (char === ")") {
+            depth--;
+            continue;
+        }
+
+        if (
+            depth === 0 &&
+            expression.slice(i, i + operator.length) === operator
+        ) {
+            return i;
+        }
+    }
+
+    return -1;
 }
