@@ -113,6 +113,56 @@ function parseIf(tokens: Token[], startIndex: number): { node: IfNode; nextIndex
                 depth--;
             }
 
+            else if (token.value.startsWith("else if ") && depth === 0) {
+                const nestedIfTokens: Token[] = [
+                    {
+                        ...token,
+                        value: token.value.slice(5).trim(), // remove "else "
+                    },
+                ];
+
+                i++;
+
+                let nestedDepth = 0;
+
+                while (i < tokens.length) {
+                    const nestedToken = tokens[i];
+
+                    if (nestedToken.type === TokenType.Expression) {
+                        if (
+                            nestedToken.value.startsWith("if ") ||
+                            nestedToken.value.startsWith("for ")
+                        ) {
+                            nestedDepth++;
+                        }
+
+                        else if (nestedToken.value === "end") {
+                            if (nestedDepth === 0) {
+                                nestedIfTokens.push(nestedToken);
+                                break;
+                            }
+
+                            nestedDepth--;
+                        }
+                    }
+
+                    nestedIfTokens.push(nestedToken);
+                    i++;
+                }
+
+                const result = parseIf(nestedIfTokens, 0);
+
+                return {
+                    node: {
+                        type: NodeType.If,
+                        condition,
+                        thenBranch: parser(thenTokens),
+                        elseBranch: [result.node],
+                    },
+                    nextIndex: i + 1,
+                };
+            }
+            
             else if (token.value === "else" && depth === 0) {
                 current = elseTokens;
                 i++;

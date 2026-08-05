@@ -120,7 +120,7 @@ async function init() {
 
     updatePreview();
 
-    setInterval(checkForUpdates, 300);
+    setInterval(checkForUpdates, 5000);
 }
 
 init();

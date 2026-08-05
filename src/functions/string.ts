@@ -1,5 +1,5 @@
 export const stringFunctions = {
-    trim(value: unknown) {
+    strip(value: unknown) {
         return String(value).trim();
     },
 
@@ -25,4 +25,27 @@ export const stringFunctions = {
         console.log("slice", { value, start, end });
         return String(value).slice(start, end);
     },
+
+    size(value: unknown) {
+        return String(value).length;
+    },
+
+    capitalize(value: unknown) {
+        const text = String(value);
+
+        if (text.length === 0) {
+            return text;
+        }
+
+        return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    },
+
+    capitalizewords(value: unknown) {
+        const text = String(value);
+
+        if (text.length === 0) {
+            return text;
+        }
+        return text.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
+    }
 };

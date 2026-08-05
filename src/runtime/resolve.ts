@@ -17,6 +17,7 @@ export function resolve(object: unknown, path: string): unknown {
             if (Array.isArray(current)) {
                 switch (key) {
                     case "count":
+                    case "size":
                         return current.length;
                     case "empty":
                         return current.length === 0;
