@@ -3,6 +3,7 @@ import { evaluateExpression } from "./evaluateExpression.js";
 
 export function executeCode(code: string, runtime: Runtime): void {
     const statements = splitStatements(code);
+    console.log(statements);
 
     for (const statement of statements) {
         if (
@@ -25,6 +26,8 @@ export function executeCode(code: string, runtime: Runtime): void {
         const expression = statement.slice(equals + 1).trim();
 
         const value = evaluateExpression(expression, runtime);
+
+        console.log(variable, value);
 
         runtime.set(variable, value);
     }

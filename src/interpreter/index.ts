@@ -24,8 +24,9 @@ export async function interpret(nodes: Node[], runtime: Runtime): Promise<string
 
                 try {
                     html += await renderComponent(node.name, node.args, runtime);
-                } catch {
-                    html += `{{ ${node.expression} }}`;
+                } catch(error) {
+                    console.error(error);
+                    throw error;
                 }
 
                 break;

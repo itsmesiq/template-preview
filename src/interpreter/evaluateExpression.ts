@@ -1,8 +1,22 @@
 import { Runtime } from "../runtime/index.js";
+import { evaluatePipe } from "./evaluatePipe.js";
 
 export function evaluateExpression(expression: string, runtime: Runtime,): unknown {
-    console.log(expression);
     expression = expression.trim();
+
+    if (
+        expression.startsWith("(") &&
+        expression.endsWith(")")
+    ) {
+        return evaluateExpression(
+            expression.slice(1, -1).trim(),
+            runtime,
+        );
+    }
+
+    if (hasPipe(expression)) {
+        return evaluatePipe(expression, runtime);
+    }
 
     if (expression.includes("??")) {
         const parts = expression.split("??").map(part => part.trim());
@@ -62,9 +76,16 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
     }
 
     if (expression.includes("+")) {
-        return expression
-            .split("+")
-            .map(part => evaluateExpression(part.trim(), runtime) ?? "")
+        const parts = expression.split("+").map(p => p.trim());
+    
+        const values = parts.map(part => evaluateExpression(part, runtime));
+    
+        if (values.every(v => typeof v === "number")) {
+            return values.reduce((a, b) => Number(a) + Number(b));
+        }
+    
+        return values
+            .map(v => v ?? "")
             .join("");
     }
 
@@ -115,4 +136,26 @@ function findTernary(expression: string): number {
         }
     }
     return -1;
+}
+
+function hasPipe(expression: string): boolean {
+    let inString = false;
+    let quote = "";
+
+    for (const char of expression) {
+        if ((char === '"' || char === "'")) {
+            if (!inString) {
+                inString = true;
+                quote = char;
+            } else if (quote === char) {
+                inString = false;
+            }
+        }
+
+        if (!inString && char === "|") {
+            return true;
+        }
+    }
+
+    return false;
 }

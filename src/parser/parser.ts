@@ -54,6 +54,7 @@ export function parser(tokens: Token[]): Node[] {
 }
 
 function parseExpression(expression: string): ExpressionNode {
+    console.log("Parsing expression:", expression);
     const parts = expression.trim().split(/\s+/);
 
     const name = parts.shift()!;
