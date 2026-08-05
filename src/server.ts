@@ -65,9 +65,18 @@ app.get("/preview/:template", async (request, reply) => {
     try {
         const context = await loadMock(mock);
 
-        const html = await render(template,context,);
+        const body = await render(template,context,);
 
-        reply.type("text/html").send(html);        
+        reply.type("text/html").send(`<!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                </head>
+                <body style="margin:0;padding:0;">
+                    ${body}
+                </body>
+            </html>`);
+        
     } catch (error) {
         app.log.error(error);
 

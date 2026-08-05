@@ -25,15 +25,25 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
     }
 
     if (expression.includes("!=")){
-        const [left, right] = expression.split("!=").map(part => part.trim());
+        const index = expression.indexOf("!=");
+        const left = expression.slice(0, index).trim();
+        const right = expression.slice(index + 2).trim();
+        
+        const leftValue = evaluateExpression(left, runtime);
+        const rightValue = evaluateExpression(right, runtime);
 
-        return evaluateExpression(left, runtime) !== evaluateExpression(right, runtime);
+        return notEquals(leftValue, rightValue);
     }
 
     if (expression.includes("==")){
-        const [left, right] = expression.split("==").map(part => part.trim());
+        const index = expression.indexOf("==");
+        const left = expression.slice(0, index).trim();
+        const right = expression.slice(index + 2).trim();
 
-        return evaluateExpression(left, runtime) === evaluateExpression(right, runtime);
+        const leftValue = evaluateExpression(left, runtime);
+        const rightValue = evaluateExpression(right, runtime);
+
+        return equals(leftValue, rightValue);
     }
 
     if (expression === "null") {
@@ -62,4 +72,15 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
     }
 
     return runtime.get(expression);
+}
+
+function equals(left: unknown, right: unknown): boolean {
+    if ((left == null && right == null)) {
+        return true;
+    }
+    return left === right;
+}
+
+function notEquals(left: unknown, right: unknown): boolean {
+    return !equals(left, right);
 }

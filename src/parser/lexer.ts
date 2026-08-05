@@ -35,9 +35,16 @@ export function lexer(input: string): Token[] {
             throw new Error(`Unclosed expression at position ${expressionStart}`);
         }
 
+        const expression = input.slice(expressionStart + 2, expressionEnd).trim();
+
+        if ( expression.startsWith("#")) {
+            cursor = expressionEnd + 2;
+            continue;
+        }
+
         tokens.push({
             type: TokenType.Expression,
-            value: input.slice(expressionStart + 2, expressionEnd).trim(),
+            value: expression,
             start: expressionStart,
             end: expressionEnd + 2,
         });
