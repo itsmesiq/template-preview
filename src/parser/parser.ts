@@ -92,7 +92,7 @@ function parseIf(tokens: Token[], startIndex: number): { node: IfNode; nextIndex
         const token = tokens[i];
 
         if (token.type === TokenType.Expression) {
-            if (token.value.startsWith("if ")) {
+            if (token.value.startsWith("if ") || token.value.startsWith("for ")) {
                 depth++;
             }
 
@@ -146,7 +146,7 @@ function parseFor(tokens: Token[], startIndex: number): { node: ForNode; nextInd
         const token = tokens[i];
 
         if (token.type === TokenType.Expression) {
-            if (token.value.startsWith("for ")) {
+            if (token.value.startsWith("for ") || token.value.startsWith("if ")) {
                 depth++;
             }
 
