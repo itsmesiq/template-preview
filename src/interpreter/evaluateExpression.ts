@@ -154,11 +154,43 @@ function notEquals(left: unknown, right: unknown): boolean {
 
 
 function findTernary(expression: string): number {
+    let depth = 0;
+    let quote = "";
+
     for (let i = 0; i < expression.length; i++) {
-        if( expression[i] === "?" && expression[i + 1] !== "."){
+        const char = expression[i];
+
+        if (quote) {
+            if (char === quote) {
+                quote = "";
+            }
+            continue;
+        }
+
+        if (char === '"' || char === "'") {
+            quote = char;
+            continue;
+        }
+
+        if (char === "(") {
+            depth++;
+            continue;
+        }
+
+        if (char === ")") {
+            depth--;
+            continue;
+        }
+
+        if (
+            depth === 0 &&
+            char === "?" &&
+            expression[i + 1] !== "."
+        ) {
             return i;
         }
     }
+
     return -1;
 }
 
