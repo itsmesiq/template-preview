@@ -1,10 +1,10 @@
 node_modules/
 dist/
 
-templates/*.html
-templates/Components/*.html
-templates/Config/*json
-mock/*.json
+api/templates/*.html
+api/templates/Components/*.html
+api/templates/Config/*json
+api/mock/*.json
 
 .env
 .env.*
@@ -13,7 +13,7 @@ mock/*.json
 .vscode/settings.json
 
 
-!templates/.gitkeep
-!mock/.gitkeep
-!templates/Components/.gitkeep
-!templates/Config/.gitkeep
+api/!templates/.gitkeep
+api/!mock/.gitkeep
+api/!templates/Components/.gitkeep
+api/!templates/Config/.gitkeep
