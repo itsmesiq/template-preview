@@ -137,7 +137,7 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
     if (!isNaN(number)) {
         return number;
     }
-
+    
     return runtime.get(expression);
 }
 

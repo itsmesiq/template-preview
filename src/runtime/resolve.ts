@@ -28,6 +28,12 @@ export function resolve(object: unknown, path: string): unknown {
                         return current[current.length - 1];                        
                 }
             }
+            if (typeof current === "string"){
+                switch (key) {
+                    case "size":
+                        return current.length;
+                }
+            }
             return current[key];
         }, object);
 }
