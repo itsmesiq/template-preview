@@ -1,19 +1,5 @@
-node_modules/
+node_modules
 dist/
-
-api/templates/*.html
-api/templates/Components/*.html
-api/templates/Config/*json
-api/mock/*.json
 
 .env
 .env.*
-
-.DS_Store
-.vscode/settings.json
-
-
-api/!templates/.gitkeep
-api/!mock/.gitkeep
-api/!templates/Components/.gitkeep
-api/!templates/Config/.gitkeep

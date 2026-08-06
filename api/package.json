@@ -1,5 +1,5 @@
 {
-  "name": "wake-email-preview",
+  "name": "@email-preview/api",
   "version": "1.0.0",
   "description": "Local preview server for Wake email templates",
   "type": "module",
