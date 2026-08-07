@@ -1,5 +1,4 @@
-import { loadComponents } from "./loadComponents.js";
-import path from "node:path";
+import { loadComponents } from './loadComponents.js';
 
 export async function resolveComponents(name: string) {
     const components = await loadComponents();
@@ -9,8 +8,6 @@ export async function resolveComponents(name: string) {
     if (!component) {
         throw new Error(`Component "${name}" not found`);
     }
-
-    const filename = path.basename(component.path);
 
     return component;
 }

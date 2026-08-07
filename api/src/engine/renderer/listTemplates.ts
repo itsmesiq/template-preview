@@ -1,4 +1,5 @@
 import { readdir } from "node:fs/promises";
+
 import { paths } from "../../utils/paths.js";
 
 export async function listTemplates(): Promise<string[]> {

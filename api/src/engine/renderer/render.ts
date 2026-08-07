@@ -1,6 +1,6 @@
+import { interpret } from "../interpreter/index.js";
 import { lexer } from "../parser/lexer.js";
 import { parser } from "../parser/parser.js";
-import { interpret } from "../interpreter/index.js";
 import { Runtime } from "../runtime/index.js";
 import { loadTemplate } from "./loadTemplate.js";
 

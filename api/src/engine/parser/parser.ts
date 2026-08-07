@@ -1,5 +1,5 @@
+import { CodeNode, ExpressionNode, ForNode, IfNode, Node, NodeType, TextNode } from "./node.js";
 import { Token, TokenType } from "./token.js";
-import { CodeNode, ExpressionNode, IfNode, ForNode, Node, NodeType, TextNode } from "./node.js";
 
 export function parser(tokens: Token[]): Node[] {
     const nodes: Node[] = [];

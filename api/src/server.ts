@@ -1,8 +1,9 @@
-import Fastify from "fastify";
-import fastifyStatic from "@fastify/static";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
+import fastifyStatic from "@fastify/static";
 import chokidar from "chokidar";
+import Fastify from "fastify";
 
 import { render } from "./engine/index.js";
 import { listTemplates } from "./engine/renderer/listTemplates.js";

@@ -1,6 +1,6 @@
 import { functions } from "../functions/index.js";
-import { evaluateExpression } from "./evaluateExpression.js";
 import { Runtime } from "../runtime/index.js";
+import { evaluateExpression } from "./evaluateExpression.js";
 
 export function evaluatePipe(expression: string, runtime: Runtime): unknown {
     const parts = expression.split("|").map(part => part.trim());

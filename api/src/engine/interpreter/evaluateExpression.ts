@@ -39,7 +39,7 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
     }
 
     if (isUnaryNot(expression)) {
-        return !Boolean(evaluateExpression(expression.slice(1).trim(), runtime));
+        return !evaluateExpression(expression.slice(1).trim(), runtime);
     }
 
     if (expression.includes("??")) {
