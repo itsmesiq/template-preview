@@ -215,7 +215,3 @@ Template Preview is built around a few core principles:
 - [ ] Live console
 
 <br>
-
-## 📄 License
-
-MIT License
