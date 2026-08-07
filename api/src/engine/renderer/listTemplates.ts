@@ -1,6 +1,5 @@
 import { readdir } from "node:fs/promises";
-import path from "node:path";
-import { paths } from "../utils/paths.js";
+import { paths } from "../../utils/paths.js";
 
 export async function listTemplates(): Promise<string[]> {
     const files = await readdir(paths.templates);

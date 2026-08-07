@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { paths } from "../utils/paths.js";
+import { paths } from "../../utils/paths.js";
 
 import { lexer } from "../parser/lexer.js";
 import { parser } from "../parser/parser.js";
@@ -8,7 +8,7 @@ import { parser } from "../parser/parser.js";
 import { Runtime } from "../runtime/index.js";
 import { interpret } from "../interpreter/index.js";
 import { evaluateExpression } from "./evaluateExpression.js";
-import { resolveComponents } from "../loaders/resolveComponents.js";
+import { resolveComponents } from "../../loaders/resolveComponents.js";
 
 export async function renderComponent(
     name: string,

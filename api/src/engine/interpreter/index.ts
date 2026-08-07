@@ -1,4 +1,3 @@
-import { readFile } from "node:fs/promises";
 import { Node, NodeType } from "../parser/node.js";
 import { Runtime } from "../runtime/index.js";
 import { evaluateExpression } from "./evaluateExpression.js";

@@ -4,8 +4,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import chokidar from "chokidar";
 
-import { render } from "./renderer/index.js";
-import { listTemplates } from "./renderer/listTemplates.js";
+import { render } from "./engine/index.js";
+import { listTemplates } from "./engine/renderer/listTemplates.js";
 import { listMocks } from "./loaders/listMocks.js";
 import { loadMock } from "./loaders/loadMock.js";
 import { paths } from "./utils/paths.js";
