@@ -1,10 +1,10 @@
 import type { FastifyInstance } from 'fastify';
 
-import { listMocks } from '../loaders/listMocks.js';
+import { mockService } from '../services/MockService.js';
 
 export async function mocksRoutes(app: FastifyInstance) {
     app.get('/api/mocks', async (_, reply) => {
-        const mocks = await listMocks();
+        const mocks = await mockService.list();
 
         return reply.send(mocks);
     });
