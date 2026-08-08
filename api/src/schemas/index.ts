@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+export const ErrorSchema = z.object({
+    error: z.string(),
+    code: z.string(),
+});
+
 export const PreviewParamsSchema = z.object({
     template: z.string(),
 });
@@ -7,3 +12,5 @@ export const PreviewParamsSchema = z.object({
 export const PreviewQuerySchema = z.object({
     mock: z.string().default('default'),
 });
+
+export const MocksResponseSchema = z.array(z.string());
