@@ -7,6 +7,7 @@ import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 
 import { logger } from './config/logger.js';
+import { registerRoutes } from './routes/index.js';
 import { versionWatcher } from './services/VersionWatcher.js';
 import { paths } from './utils/paths.js';
 
@@ -23,6 +24,8 @@ app.setSerializerCompiler(serializerCompiler);
 await app.register(fastifyStatic, {
     root: path.join(__dirname, '../public'),
 });
+
+await registerRoutes(app);
 
 versionWatcher.start([path.join(paths.templates), path.join(paths.mock), path.join(paths.src)]);
 
