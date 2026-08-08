@@ -1,7 +1,8 @@
 import type { FastifyInstance } from 'fastify';
 
-import { render } from '../engine/index.js';
-import { loadMock } from '../loaders/loadMock.js';
+import { PreviewEngine } from '../engine/index.js';
+
+const previewEngine = new PreviewEngine();
 
 export async function previewRoutes(app: FastifyInstance) {
     app.get('/preview/:template', async (request, reply) => {
@@ -9,9 +10,7 @@ export async function previewRoutes(app: FastifyInstance) {
         const { mock = 'default' } = request.query as { mock?: string };
 
         try {
-            const context = await loadMock(mock);
-
-            const body = await render(template, context);
+            const body = await previewEngine.render({ template, mock });
 
             // TODO:
             // Mover para um renderer/layout
