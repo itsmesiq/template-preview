@@ -3,7 +3,12 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 import { previewEngine } from '../engine/index.js';
-import { TemplateNotFoundError } from '../errors/index.js';
+import {
+    ComponentNotFoundError,
+    MockNotFoundError,
+    TemplateNotFoundError,
+    VariableNotFoundError,
+} from '../errors/index.js';
 import { ErrorSchema, PreviewParamsSchema, PreviewQuerySchema } from '../schemas/index.js';
 
 export async function previewRoutes(app: FastifyInstance) {
@@ -52,6 +57,39 @@ export async function previewRoutes(app: FastifyInstance) {
                     });
                 }
 
+                if (error instanceof MockNotFoundError) {
+                    app.log.warn({ template, mock }, 'Mock not found');
+
+                    return reply.status(404).send({
+                        error: error.message,
+                        code: 'MOCK_NOT_FOUND',
+                    });
+                }
+
+                if (error instanceof VariableNotFoundError) {
+                    app.log.error(
+                        { error, template, mock },
+                        'Variable not found while rendering preview',
+                    );
+
+                    return reply.status(500).send({
+                        error: error.message,
+                        code: 'VARIABLE_NOT_FOUND',
+                    });
+                }
+
+                if (error instanceof ComponentNotFoundError) {
+                    app.log.error(
+                        { error, template, mock },
+                        'Component not found while rendering preview',
+                    );
+
+                    return reply.status(500).send({
+                        error: error.message,
+                        code: 'COMPONENT_NOT_FOUND',
+                    });
+                }
+
                 app.log.error(
                     {
                         error,
@@ -61,17 +99,10 @@ export async function previewRoutes(app: FastifyInstance) {
                     'Failed to render preview',
                 );
 
-                return reply.status(500).type('text/html').send(`
-                    <div style="
-                        padding:40px;
-                        font-family:Inter,Arial,sans-serif;
-                        color:#dc2626;
-                    ">
-                        <h2>Erro ao renderizar</h2>
-
-                        <pre>${String(error)}</pre>
-                    </div>
-                `);
+                return reply.status(500).send({
+                    error: 'Internal Server Error',
+                    code: 'INTERNAL_SERVER_ERROR',
+                });
             }
         },
     });

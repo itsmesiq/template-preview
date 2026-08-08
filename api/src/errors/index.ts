@@ -11,3 +11,17 @@ export class ComponentNotFoundError extends Error {
         this.name = 'ComponentNotFoundError';
     }
 }
+
+export class MockNotFoundError extends Error {
+    constructor(mock: string) {
+        super(`Mock "${mock}" not found`);
+        this.name = 'MockNotFoundError';
+    }
+}
+
+export class VariableNotFoundError extends Error {
+    constructor(path: string) {
+        super(`Variable "${path}" not found`);
+        this.name = 'VariableNotFoundError';
+    }
+}
