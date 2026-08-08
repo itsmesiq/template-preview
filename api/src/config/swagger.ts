@@ -25,7 +25,7 @@ export async function registerSwagger(app: FastifyInstance) {
         routePrefix: DOCUMENTATION_ROUTE,
 
         configuration: {
-            theme: 'purple',
+            theme: 'saturn',
         },
     });
 }
