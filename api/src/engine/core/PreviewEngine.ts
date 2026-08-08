@@ -7,10 +7,12 @@ interface PreviewOptions {
     mock?: string;
 }
 
-export class PreviewEngine {
+class PreviewEngine {
     async render({ template, mock = 'default' }: PreviewOptions) {
         const context: RenderContext = await loadMock(mock);
 
         return render(template, context);
     }
 }
+
+export const previewEngine = new PreviewEngine();

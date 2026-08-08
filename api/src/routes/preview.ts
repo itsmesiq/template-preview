@@ -1,8 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 
-import { PreviewEngine } from '../engine/index.js';
-
-const previewEngine = new PreviewEngine();
+import { previewEngine } from '../engine/index.js';
 
 export async function previewRoutes(app: FastifyInstance) {
     app.get('/preview/:template', async (request, reply) => {
