@@ -14,3 +14,5 @@ export const PreviewQuerySchema = z.object({
 });
 
 export const MocksResponseSchema = z.array(z.string());
+
+export const TemplatesResponseSchema = z.array(z.string());
