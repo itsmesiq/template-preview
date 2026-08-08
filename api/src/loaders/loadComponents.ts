@@ -1,7 +1,7 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 
-import { paths } from "../utils/paths.js";
+import { paths } from '../utils/paths.js';
 
 export interface ComponentConfig {
     name: string;
@@ -14,12 +14,15 @@ export interface ComponentConfig {
 
 let cache: Map<string, ComponentConfig> | null = null;
 
-export async function loadComponents() {
+export async function loadComponents(): Promise<Map<string, ComponentConfig>> {
     if (cache) {
         return cache;
     }
 
-    const file = await readFile(path.join(paths.root, "templates", "Config", "components.json"), "utf-8");
+    const file = await readFile(
+        path.join(paths.root, 'templates', 'Config', 'components.json'),
+        'utf-8',
+    );
 
     const json = JSON.parse(file) as ComponentConfig[];
 
@@ -28,7 +31,7 @@ export async function loadComponents() {
             component.name,
             {
                 ...component,
-                path: path.join("Components", path.basename(component.path)),
+                path: path.join('Components', path.basename(component.path)),
             },
         ]),
     );

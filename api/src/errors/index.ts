@@ -4,3 +4,10 @@ export class TemplateNotFoundError extends Error {
         this.name = 'TemplateNotFoundError';
     }
 }
+
+export class ComponentNotFoundError extends Error {
+    constructor(component: string) {
+        super(`Component "${component}" not found`);
+        this.name = 'ComponentNotFoundError';
+    }
+}
