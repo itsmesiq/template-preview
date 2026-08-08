@@ -28,7 +28,7 @@ export async function mocksRoutes(app: FastifyInstance) {
                 app.log.error(error, 'Failed to list mocks');
 
                 return reply.status(500).send({
-                    error: 'Failed to list mocks',
+                    error: 'Internal Server Error',
                     code: 'INTERNAL_SERVER_ERROR',
                 });
             }
