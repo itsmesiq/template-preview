@@ -1,6 +1,6 @@
 import chokidar from 'chokidar';
 
-export class VersionWatcher {
+class VersionWatcher {
     private version = Date.now();
 
     start(paths: string[]) {
