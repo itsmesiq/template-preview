@@ -53,6 +53,7 @@ export async function previewRoutes(app: FastifyInstance) {
 
                     return reply.status(404).send({
                         error: error.message,
+                        message: error.message,
                         code: 'TEMPLATE_NOT_FOUND',
                     });
                 }
@@ -62,6 +63,7 @@ export async function previewRoutes(app: FastifyInstance) {
 
                     return reply.status(404).send({
                         error: error.message,
+                        message: error.message,
                         code: 'MOCK_NOT_FOUND',
                     });
                 }
@@ -74,6 +76,7 @@ export async function previewRoutes(app: FastifyInstance) {
 
                     return reply.status(500).send({
                         error: error.message,
+                        message: error.message,
                         code: 'VARIABLE_NOT_FOUND',
                     });
                 }
@@ -86,6 +89,7 @@ export async function previewRoutes(app: FastifyInstance) {
 
                     return reply.status(500).send({
                         error: error.message,
+                        message: error.message,
                         code: 'COMPONENT_NOT_FOUND',
                     });
                 }
@@ -101,6 +105,7 @@ export async function previewRoutes(app: FastifyInstance) {
 
                 return reply.status(500).send({
                     error: 'Internal Server Error',
+                    message: 'An unexpected error occurred.',
                     code: 'INTERNAL_SERVER_ERROR',
                 });
             }

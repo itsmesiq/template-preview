@@ -25,3 +25,10 @@ export class VariableNotFoundError extends Error {
         this.name = 'VariableNotFoundError';
     }
 }
+
+export class ProjectNotFoundError extends Error {
+    constructor(project: string) {
+        super(`Project "${project}" not found`);
+        this.name = 'ProjectNotFoundError';
+    }
+}

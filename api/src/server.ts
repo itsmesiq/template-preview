@@ -9,6 +9,8 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { registerCors } from './lib/cors.js';
 import { logger } from './lib/logger.js';
 import { registerSwagger } from './lib/swagger.js';
+import authPlugin from './plugins/auth.js';
+import { registerErrorHandler } from './plugins/errorHander.js';
 import { registerRoutes } from './routes/index.js';
 import { versionWatcher } from './services/VersionWatcher.js';
 import { paths } from './utils/paths.js';
@@ -25,11 +27,15 @@ app.setSerializerCompiler(serializerCompiler);
 
 await registerCors(app);
 
+registerErrorHandler(app);
+
 await registerSwagger(app);
 
 await app.register(fastifyStatic, {
     root: path.join(__dirname, '../public'),
 });
+
+await app.register(authPlugin);
 
 await registerRoutes(app);
 

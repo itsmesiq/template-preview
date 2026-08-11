@@ -3,10 +3,12 @@ import { betterAuth } from 'better-auth/minimal';
 import { openAPI } from 'better-auth/plugins';
 
 import { db } from '../db/index.js'; // your drizzle instance
+import * as schema from '../db/schema.js'; // your drizzle schema
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
         provider: 'pg', // or "mysql", "sqlite"
+        schema,
     }),
     baseURL: process.env.BETTER_AUTH_URL! as string,
     emailAndPassword: {

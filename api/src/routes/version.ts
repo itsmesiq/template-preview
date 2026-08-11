@@ -28,6 +28,7 @@ export async function versionRoutes(app: FastifyInstance) {
 
                 return reply.status(500).send({
                     error: 'Internal Server Error',
+                    message: 'An unexpected error occurred.',
                     code: 'INTERNAL_SERVER_ERROR',
                 });
             }
