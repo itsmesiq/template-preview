@@ -1,6 +1,6 @@
 import { relations } from 'drizzle-orm/_relations';
-import { index } from 'drizzle-orm/cockroach-core';
-import { boolean, pgTable, text, timestamp, unique, uuid } from 'drizzle-orm/pg-core';
+import { index, uniqueIndex } from 'drizzle-orm/cockroach-core';
+import { boolean, jsonb, pgTable, text, timestamp, unique, uuid } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
     id: text('id').primaryKey(),
@@ -146,6 +146,11 @@ export const templatesTable = pgTable(
     table => [unique('templates_project_id_name_unique').on(table.projectId, table.name)],
 );
 
+export type ComponentParam = {
+    name: string;
+    required: boolean;
+};
+
 export const componentsTable = pgTable(
     'components',
     {
@@ -160,6 +165,12 @@ export const componentsTable = pgTable(
             }),
 
         content: text('content').notNull(),
+
+        availableInAllPages: boolean('available_in_all_pages').notNull().default(true),
+
+        availableInAllEmails: boolean('available_in_all_emails').notNull().default(true),
+
+        params: jsonb('params').$type<ComponentParam[]>().notNull().default([]),
 
         createdAt: timestamp('created_at').notNull().defaultNow(),
 
@@ -188,6 +199,24 @@ export const mocksTable = pgTable(
         updatedAt: timestamp('updated_at').notNull().defaultNow(),
     },
     table => [unique('mocks_project_id_name_unique').on(table.projectId, table.name)],
+);
+
+export const projectArtifactsTable = pgTable(
+    'project_artifacts',
+    {
+        id: uuid('id').primaryKey().defaultRandom(),
+        projectId: uuid('project_id')
+            .notNull()
+            .references(() => projectsTable.id, {
+                onDelete: 'cascade',
+            }),
+
+        name: text('name').notNull(),
+        content: text('content').notNull(),
+        createdAt: timestamp('created_at').notNull().defaultNow(),
+        updatedAt: timestamp('updated_at').notNull().defaultNow(),
+    },
+    table => [uniqueIndex('project_artifacts_project_id_name_idx').on(table.projectId, table.name)],
 );
 
 export const userRelations = relations(user, ({ many }) => ({
