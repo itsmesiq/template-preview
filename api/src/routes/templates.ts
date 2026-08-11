@@ -6,7 +6,7 @@ import { requireAuth } from '../plugins/requireAuth.js';
 import {
     CreateTemplateSchema,
     ErrorSchema,
-    ProjectTemplateParamsSchema,
+    ProjectResourceParamsSchema,
     TemplateListSchema,
     TemplateParamsSchema,
     TemplateSchema,
@@ -27,7 +27,7 @@ export async function templateRoutes(app: FastifyInstance) {
             operationId: 'createTemplate',
             tags: ['Templates'],
             summary: 'Create a new template for a project',
-            params: ProjectTemplateParamsSchema,
+            params: ProjectResourceParamsSchema,
             body: CreateTemplateSchema,
             response: {
                 201: TemplateSchema,
@@ -57,7 +57,7 @@ export async function templateRoutes(app: FastifyInstance) {
             operationId: 'listTemplates',
             tags: ['Templates'],
             summary: 'List all templates for a project',
-            params: ProjectTemplateParamsSchema,
+            params: ProjectResourceParamsSchema,
             response: {
                 200: TemplateListSchema,
                 401: ErrorSchema,
