@@ -2,7 +2,7 @@ import type { FastifyServerOptions } from 'fastify';
 
 export const logger: FastifyServerOptions['logger'] =
     process.env.NODE_ENV === 'production'
-        ? true
+        ? { level: 'info' }
         : {
               level: 'info',
               transport: {

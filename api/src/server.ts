@@ -6,8 +6,9 @@ import Fastify from 'fastify';
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 
-import { logger } from './config/logger.js';
-import { registerSwagger } from './config/swagger.js';
+import { registerCors } from './lib/cors.js';
+import { logger } from './lib/logger.js';
+import { registerSwagger } from './lib/swagger.js';
 import { registerRoutes } from './routes/index.js';
 import { versionWatcher } from './services/VersionWatcher.js';
 import { paths } from './utils/paths.js';
@@ -22,13 +23,13 @@ const app = Fastify({
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
+await registerCors(app);
+
 await registerSwagger(app);
 
 await app.register(fastifyStatic, {
     root: path.join(__dirname, '../public'),
 });
-
-versionWatcher.start([path.join(paths.templates), path.join(paths.mock), path.join(paths.src)]);
 
 await registerRoutes(app);
 

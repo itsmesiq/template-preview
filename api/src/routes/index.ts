@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 
+import { authRoutes } from './auth.js';
 import { homeRoutes } from './home.js';
 import { mocksRoutes } from './mocks.js';
 import { previewRoutes } from './preview.js';
@@ -7,6 +8,7 @@ import { templateRoutes } from './templates.js';
 import { versionRoutes } from './version.js';
 
 export async function registerRoutes(app: FastifyInstance) {
+    await app.register(authRoutes);
     await app.register(previewRoutes);
     await app.register(templateRoutes);
     await app.register(mocksRoutes);

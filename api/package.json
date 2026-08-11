@@ -21,10 +21,16 @@
         }
     },
     "dependencies": {
+        "@better-auth/drizzle-adapter": "^1.6.26",
+        "@fastify/cors": "^11.3.0",
         "@fastify/static": "^10.1.2",
         "@fastify/swagger": "^9.8.1",
+        "@neondatabase/serverless": "^1.1.0",
         "@scalar/fastify-api-reference": "^1.64.0",
+        "better-auth": "^1.6.26",
         "chokidar": "^5.0.0",
+        "dotenv": "^17.4.2",
+        "drizzle-orm": "1.0.0-rc.4",
         "fastify": "^5.11.2",
         "fastify-type-provider-zod": "^7.0.0",
         "zod": "^4.4.3"
@@ -32,6 +38,8 @@
     "devDependencies": {
         "@eslint/js": "^9.39.5",
         "@types/node": "^26.1.2",
+        "@types/pg": "^8.21.0",
+        "drizzle-kit": "1.0.0-rc.4",
         "eslint": "^9.39.5",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-simple-import-sort": "^14.0.0",
