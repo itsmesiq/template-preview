@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import multipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
 import Fastify from 'fastify';
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
@@ -12,8 +13,6 @@ import { registerSwagger } from './lib/swagger.js';
 import authPlugin from './plugins/auth.js';
 import { registerErrorHandler } from './plugins/errorHander.js';
 import { registerRoutes } from './routes/index.js';
-import { versionWatcher } from './services/VersionWatcher.js';
-import { paths } from './utils/paths.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,6 +29,10 @@ await registerCors(app);
 registerErrorHandler(app);
 
 await registerSwagger(app);
+
+await app.register(multipart, {
+    attachFieldsToBody: true,
+});
 
 await app.register(fastifyStatic, {
     root: path.join(__dirname, '../public'),
