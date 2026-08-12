@@ -176,3 +176,5 @@ export const MockParamsSchema = z.object({
     id: z.uuid(),
     projectId: z.uuid(),
 });
+
+export { UploadComponentSchema, UploadMockSchema, UploadTemplateSchema } from './uploads.js';

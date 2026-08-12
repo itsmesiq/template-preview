@@ -1,3 +1,4 @@
+import type { MultipartFile } from '@fastify/multipart';
 import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -10,12 +11,14 @@ import {
     MockSchema,
     ProjectResourceParamsSchema,
     UpdateMockSchema,
+    UploadMockSchema,
 } from '../schemas/index.js';
 import { createMock } from '../usecases/CreateMock.js';
 import { deleteMock } from '../usecases/DeleteMock.js';
 import { getMocks } from '../usecases/GetMocks.js';
 import { listMocks } from '../usecases/ListMocks.js';
 import { updateMock } from '../usecases/UpdateMock.js';
+import { uploadMock } from '../usecases/UploadMock.js';
 
 export async function mocksRoutes(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().route({
@@ -155,6 +158,41 @@ export async function mocksRoutes(app: FastifyInstance) {
             });
 
             return reply.status(204).send(null);
+        },
+    });
+
+    app.withTypeProvider<ZodTypeProvider>().route({
+        method: 'POST',
+        url: '/projects/:projectId/mocks/upload',
+        preHandler: requireAuth,
+        schema: {
+            operationId: 'uploadMock',
+            tags: ['Mocks'],
+            summary: 'Upload a mock for a project',
+            consumes: ['multipart/form-data'],
+            params: ProjectResourceParamsSchema,
+            body: UploadMockSchema,
+            response: {
+                201: MockSchema,
+                400: ErrorSchema,
+                401: ErrorSchema,
+                404: ErrorSchema,
+            },
+        },
+        handler: async (request, reply) => {
+            const { file } = request.body;
+
+            const buffer = await file.toBuffer();
+            const content = buffer.toString('utf-8');
+
+            const mock = await uploadMock({
+                projectId: request.params.projectId,
+                userId: request.user!.id,
+                filename: file.filename,
+                content,
+            });
+
+            return reply.status(201).send(mock);
         },
     });
 }

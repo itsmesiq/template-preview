@@ -32,6 +32,10 @@ await registerSwagger(app);
 
 await app.register(multipart, {
     attachFieldsToBody: true,
+    limits: {
+        files: 1,
+        fileSize: 5 * 1024 * 1024, // 5MB
+    },
 });
 
 await app.register(fastifyStatic, {
