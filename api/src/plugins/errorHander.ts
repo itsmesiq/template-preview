@@ -1,7 +1,11 @@
 import type { FastifyInstance } from 'fastify';
 import { hasZodFastifySchemaValidationErrors } from 'fastify-type-provider-zod';
 
-import { ProjectNotFoundError, TemplateNotFoundError } from '../errors/index.js';
+import {
+    ComponentNotFoundError,
+    ProjectNotFoundError,
+    TemplateNotFoundError,
+} from '../errors/index.js';
 
 export function registerErrorHandler(app: FastifyInstance) {
     app.setErrorHandler((error, request, reply) => {
@@ -26,6 +30,14 @@ export function registerErrorHandler(app: FastifyInstance) {
                 error: 'Not Found',
                 message: error.message,
                 code: 'TEMPLATE_NOT_FOUND',
+            });
+        }
+
+        if (error instanceof ComponentNotFoundError) {
+            return reply.status(404).send({
+                error: 'Not Found',
+                message: error.message,
+                code: 'COMPONENT_NOT_FOUND',
             });
         }
 
