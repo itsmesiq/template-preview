@@ -22,6 +22,8 @@ export const VersionResponseSchema = z.object({
     version: z.number(),
 });
 
+// Nova versão API
+
 export const CreateProjectSchema = z.object({
     name: z
         .string()
@@ -144,3 +146,33 @@ export const ComponentSchema = z.object({
 });
 
 export const ComponentListSchema = z.array(ComponentSchema);
+
+export const CreateMockSchema = z.object({
+    name: z.string().min(1).max(100),
+    content: z.string().default(''),
+});
+
+export const UpdateMockSchema = z
+    .object({
+        name: z.string().min(1).max(100).optional(),
+        content: z.string().optional(),
+    })
+    .refine(data => data.name !== undefined || data.content !== undefined, {
+        message: 'At least one of name or content must be provided.',
+    });
+
+export const MockSchema = z.object({
+    id: z.uuid(),
+    name: z.string(),
+    projectId: z.uuid(),
+    content: z.string(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
+});
+
+export const MockListSchema = z.array(MockSchema);
+
+export const MockParamsSchema = z.object({
+    id: z.uuid(),
+    projectId: z.uuid(),
+});
