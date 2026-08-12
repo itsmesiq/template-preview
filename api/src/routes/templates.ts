@@ -11,12 +11,14 @@ import {
     TemplateParamsSchema,
     TemplateSchema,
     UpdateTemplateSchema,
+    UploadTemplateSchema,
 } from '../schemas/index.js';
 import { createTemplate } from '../usecases/CreateTemplate.js';
 import { deleteTemplate } from '../usecases/DeleteTemplate.js';
 import { getTemplate } from '../usecases/GetTemplate.js';
 import { listTemplates } from '../usecases/ListTemplates.js';
 import { updateTemplate } from '../usecases/UpdateTemplate.js';
+import { uploadTemplate } from '../usecases/UploadTemplate.js';
 
 export async function templateRoutes(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().route({
@@ -154,6 +156,41 @@ export async function templateRoutes(app: FastifyInstance) {
             });
 
             return reply.status(204).send(null);
+        },
+    });
+
+    app.withTypeProvider<ZodTypeProvider>().route({
+        method: 'POST',
+        url: '/projects/:projectId/templates/upload',
+        preHandler: requireAuth,
+        schema: {
+            operationId: 'uploadTemplate',
+            tags: ['Templates'],
+            summary: 'Upload a template file for a project',
+            consumes: ['multipart/form-data'],
+            params: ProjectResourceParamsSchema,
+            body: UploadTemplateSchema,
+            response: {
+                201: TemplateSchema,
+                400: ErrorSchema,
+                401: ErrorSchema,
+                404: ErrorSchema,
+            },
+        },
+        handler: async (request, reply) => {
+            const { file } = request.body;
+
+            const buffer = await file.toBuffer();
+            const content = buffer.toString('utf-8');
+
+            const template = await uploadTemplate({
+                projectId: request.params.projectId,
+                userId: request.user!.id,
+                filename: file.filename,
+                content,
+            });
+
+            return reply.status(201).send(template);
         },
     });
 }

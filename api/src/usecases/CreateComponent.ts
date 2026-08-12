@@ -10,9 +10,9 @@ interface CreateComponentInput {
     userId: string;
     name: string;
     content: string;
-    availableInAllPages: boolean;
-    availableInAllEmails: boolean;
-    params: {
+    availableInAllPages?: boolean;
+    availableInAllEmails?: boolean;
+    params?: {
         name: string;
         required: boolean;
     }[];
@@ -23,9 +23,9 @@ export async function createComponent({
     userId,
     name,
     content,
-    availableInAllPages,
-    availableInAllEmails,
-    params,
+    availableInAllPages = true,
+    availableInAllEmails = true,
+    params = [],
 }: CreateComponentInput) {
     const [project] = await db
         .select({ id: projectsTable.id })

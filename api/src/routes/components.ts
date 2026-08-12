@@ -11,12 +11,14 @@ import {
     ErrorSchema,
     ProjectResourceParamsSchema,
     UpdateComponentSchema,
+    UploadComponentSchema,
 } from '../schemas/index.js';
 import { createComponent } from '../usecases/CreateComponent.js';
 import { deleteComponent } from '../usecases/DeleteComponents.js';
 import { getComponent } from '../usecases/GetComponent.js';
 import { listComponents } from '../usecases/ListComponent.js';
 import { updateComponent } from '../usecases/UpdateComponent.js';
+import { uploadComponent } from '../usecases/UploadComponent.js';
 
 export async function componentRoutes(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().route({
@@ -163,6 +165,41 @@ export async function componentRoutes(app: FastifyInstance) {
             });
 
             return reply.status(204).send(null);
+        },
+    });
+
+    app.withTypeProvider<ZodTypeProvider>().route({
+        method: 'POST',
+        url: '/projects/:projectId/components/upload',
+        preHandler: requireAuth,
+        schema: {
+            operationId: 'uploadComponent',
+            tags: ['Components'],
+            summary: 'Upload a component for a project',
+            consumes: ['multipart/form-data'],
+            params: ProjectResourceParamsSchema,
+            body: UploadComponentSchema,
+            response: {
+                201: ComponentSchema,
+                400: ErrorSchema,
+                401: ErrorSchema,
+                404: ErrorSchema,
+            },
+        },
+        handler: async (request, reply) => {
+            const { file } = request.body;
+
+            const buffer = await file.toBuffer();
+            const content = buffer.toString('utf-8');
+
+            const component = await uploadComponent({
+                projectId: request.params.projectId,
+                userId: request.user!.id,
+                filename: file.filename,
+                content,
+            });
+
+            return reply.status(201).send(component);
         },
     });
 }
