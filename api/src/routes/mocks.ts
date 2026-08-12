@@ -1,4 +1,3 @@
-import type { MultipartFile } from '@fastify/multipart';
 import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
