@@ -35,6 +35,7 @@ export async function componentRoutes(app: FastifyInstance) {
             body: CreateComponentSchema,
             response: {
                 201: ComponentSchema,
+                400: ErrorSchema,
                 401: ErrorSchema,
                 404: ErrorSchema,
             },
@@ -210,7 +211,7 @@ export async function componentRoutes(app: FastifyInstance) {
         url: '/projects/:projectId/components/reload',
         preHandler: requireAuth,
         schema: {
-            operationId: 'reloadComponents',
+            operationId: 'reloadComponentsJson',
             tags: ['Components'],
             summary: 'Reload components.json for a project',
             params: ProjectResourceParamsSchema,
