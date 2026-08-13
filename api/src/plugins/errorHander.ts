@@ -67,14 +67,6 @@ export function registerErrorHandler(app: FastifyInstance) {
             });
         }
 
-        if (error.code === 'FST_ERR_CTP_INVALID_JSON_BODY') {
-            return reply.status(400).send({
-                error: 'Bad Request',
-                message: 'Invalid JSON body',
-                code: 'INVALID_JSON_BODY',
-            });
-        }
-
         if (isUniqueConstraintViolationError(error)) {
             return reply.status(409).send({
                 error: 'Conflict',
