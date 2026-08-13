@@ -1,6 +1,8 @@
 import { MultipartFile } from '@fastify/multipart';
 import { z } from 'zod';
 
+const SAFE_FILENAME_PATTERN = /^[a-zA-Z0-9_.-]+$/;
+
 const UploadFileSchema = z.custom<MultipartFile>(
     value => {
         return (
@@ -16,8 +18,19 @@ const UploadFileSchema = z.custom<MultipartFile>(
     },
 );
 
+const validateFilename = (file: MultipartFile, extension: string) => {
+    const filename = file.filename;
+
+    return (
+        filename.length > extension.length &&
+        SAFE_FILENAME_PATTERN.test(filename) &&
+        !filename.includes('..') &&
+        filename.toLowerCase().endsWith(extension)
+    );
+};
+
 const UploadJsonFileSchema = UploadFileSchema.superRefine((file, ctx) => {
-    if (!file.filename.toLowerCase().endsWith('.json')) {
+    if (!validateFilename(file, '.json')) {
         ctx.addIssue({
             code: 'custom',
             message: 'File must have a .json extension.',
@@ -33,7 +46,7 @@ const UploadJsonFileSchema = UploadFileSchema.superRefine((file, ctx) => {
 });
 
 const UploadHtmlFileSchema = UploadFileSchema.superRefine((file, ctx) => {
-    if (!file.filename.toLowerCase().endsWith('.html')) {
+    if (!validateFilename(file, '.html')) {
         ctx.addIssue({
             code: 'custom',
             message: 'File must have a .html extension.',
