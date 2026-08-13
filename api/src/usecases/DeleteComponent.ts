@@ -31,5 +31,9 @@ export async function deleteComponent({ id, projectId, userId }: DeleteComponent
         throw new ComponentNotFoundError(id);
     }
 
-    await generateComponentsJson(projectId);
+    try {
+        await generateComponentsJson(projectId);
+    } catch (error) {
+        console.error(`Failed to generate components.json for project "${projectId}"`, error);
+    }
 }

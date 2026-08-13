@@ -10,13 +10,15 @@ import {
     CreateComponentSchema,
     ErrorSchema,
     ProjectResourceParamsSchema,
+    ReloadComponentJsonSchema,
     UpdateComponentSchema,
     UploadComponentSchema,
 } from '../schemas/index.js';
 import { createComponent } from '../usecases/CreateComponent.js';
-import { deleteComponent } from '../usecases/DeleteComponents.js';
+import { deleteComponent } from '../usecases/DeleteComponent.js';
 import { getComponent } from '../usecases/GetComponent.js';
 import { listComponents } from '../usecases/ListComponent.js';
+import { reloadComponentsJson } from '../usecases/ReloadComponentsJson.js';
 import { updateComponent } from '../usecases/UpdateComponent.js';
 import { uploadComponent } from '../usecases/UploadComponent.js';
 
@@ -200,6 +202,30 @@ export async function componentRoutes(app: FastifyInstance) {
             });
 
             return reply.status(201).send(component);
+        },
+    });
+
+    app.withTypeProvider<ZodTypeProvider>().route({
+        method: 'POST',
+        url: '/projects/:projectId/components/reload',
+        preHandler: requireAuth,
+        schema: {
+            operationId: 'reloadComponents',
+            tags: ['Components'],
+            summary: 'Reload components.json for a project',
+            params: ProjectResourceParamsSchema,
+            response: {
+                200: ReloadComponentJsonSchema,
+                401: ErrorSchema,
+                404: ErrorSchema,
+            },
+        },
+        handler: async (request, reply) => {
+            await reloadComponentsJson({
+                projectId: request.params.projectId,
+                userId: request.user!.id,
+            });
+            return reply.status(200).send({ message: 'components.json regenerated successfully' });
         },
     });
 }

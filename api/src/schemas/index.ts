@@ -147,6 +147,10 @@ export const ComponentSchema = z.object({
 
 export const ComponentListSchema = z.array(ComponentSchema);
 
+export const ReloadComponentJsonSchema = z.object({
+    message: z.string(),
+});
+
 export const CreateMockSchema = z.object({
     name: z.string().min(1).max(100),
     content: z.string().default(''),
