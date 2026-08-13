@@ -14,7 +14,7 @@ import {
 } from '../schemas/index.js';
 import { createMock } from '../usecases/CreateMock.js';
 import { deleteMock } from '../usecases/DeleteMock.js';
-import { getMocks } from '../usecases/GetMocks.js';
+import { getMock } from '../usecases/GetMock.js';
 import { listMocks } from '../usecases/ListMocks.js';
 import { updateMock } from '../usecases/UpdateMock.js';
 import { uploadMock } from '../usecases/UploadMock.js';
@@ -92,7 +92,7 @@ export async function mocksRoutes(app: FastifyInstance) {
             },
         },
         handler: async (request, reply) => {
-            const mock = await getMocks({
+            const mock = await getMock({
                 id: request.params.id,
                 projectId: request.params.projectId,
                 userId: request.user!.id,

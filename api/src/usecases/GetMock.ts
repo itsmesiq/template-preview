@@ -10,7 +10,7 @@ interface GetMocksInput {
     userId: string;
 }
 
-export async function getMocks({ id, projectId, userId }: GetMocksInput) {
+export async function getMock({ id, projectId, userId }: GetMocksInput) {
     const [project] = await db
         .select({ id: projectsTable.id })
         .from(projectsTable)
