@@ -7,11 +7,12 @@ export const ErrorSchema = z.object({
 });
 
 export const PreviewParamsSchema = z.object({
-    template: z.string(),
+    projectId: z.uuid(),
+    templateId: z.uuid(),
 });
 
 export const PreviewQuerySchema = z.object({
-    mock: z.string().default('default'),
+    mock: z.uuid(),
 });
 
 export const MocksResponseSchema = z.array(z.string());

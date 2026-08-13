@@ -1,7 +1,12 @@
-import { resolve } from "./resolve.js";
+import type { Component } from '../../types/Component.js';
+import { resolve } from './resolve.js';
 
 export class Runtime {
-    constructor(private readonly values: Record<string, unknown>, private readonly parent?: Runtime) {}
+    constructor(
+        private readonly values: Record<string, unknown>,
+        private readonly components: Map<string, Component>,
+        private readonly parent?: Runtime,
+    ) {}
 
     get(path: string): unknown {
         const value = resolve(this.values, path);
@@ -17,7 +22,17 @@ export class Runtime {
         this.values[path] = value;
     }
 
+    getComponent(name: string): Component | undefined {
+        const component = this.components.get(name);
+
+        if (component) {
+            return component;
+        }
+
+        return this.parent?.getComponent(name);
+    }
+
     child(): Runtime {
-        return new Runtime({}, this);
+        return new Runtime({}, this.components, this);
     }
 }
