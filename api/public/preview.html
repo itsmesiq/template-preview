@@ -1,40 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Wake Email Preview</title>
+        <link rel="stylesheet" href="./preview.css" />
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Wake Email Preview</title>
-    <link rel="stylesheet" href="./preview.css">
-</head>
-
-<body>
-    <header class="toolbar">
-        <h1>Wake Email Preview</h1>
-        <div class="controls">
-            <div class="field checkbox">
-                <label>&nbsp;</label>
-                <label class="checkbox-label">
-                    <input type="checkbox" id="autoreload" />
-                    Auto Reload
-                </label>
+    <body>
+        <header class="toolbar">
+            <h1>Wake Email Preview</h1>
+            <div class="controls">
+                <div class="field checkbox">
+                    <label>&nbsp;</label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="autoreload" />
+                        Auto Reload
+                    </label>
+                </div>
+                <div class="field">
+                    <label>Projeto</label>
+                    <select name="project" id="project"></select>
+                </div>
+                <div class="field">
+                    <label>Template</label>
+                    <select name="template" id="template"></select>
+                </div>
+                <div class="field">
+                    <label>Mock</label>
+                    <select name="mock" id="mock"></select>
+                </div>
             </div>
-            <div class="field">
-                <label>Template</label>
-                <select name="template" id="template"></select>
-            </div>
-            <div class="field">
-                <label>Mock</label>
-                <select name="mock" id="mock"></select>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="workspace">
-        <div class="email-frame">
-            <iframe id="preview" title="Preview"></iframe>
-        </div>
-    </main>
+        <main class="workspace">
+            <div class="email-frame">
+                <iframe id="preview" title="Preview"></iframe>
+            </div>
+        </main>
 
-    <script type="module" src="./preview.js"></script>
-</body>
+        <script type="module" src="./preview.js"></script>
+    </body>
 </html>

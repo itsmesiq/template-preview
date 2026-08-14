@@ -12,7 +12,7 @@ export const PreviewParamsSchema = z.object({
 });
 
 export const PreviewQuerySchema = z.object({
-    mock: z.uuid(),
+    mockId: z.uuid(),
 });
 
 export const MocksResponseSchema = z.array(z.string());
