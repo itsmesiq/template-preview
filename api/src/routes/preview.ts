@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
 
 import { requireAuth } from '../plugins/requireAuth.js';
 import { ErrorSchema, PreviewParamsSchema, PreviewQuerySchema } from '../schemas/index.js';
@@ -17,20 +18,14 @@ export async function previewRoutes(app: FastifyInstance) {
             params: PreviewParamsSchema,
             querystring: PreviewQuerySchema,
             response: {
-                200: {
-                    'text/html': {
-                        schema: {
-                            type: 'string',
-                        },
-                    },
-                },
+                200: z.string(),
                 404: ErrorSchema,
                 500: ErrorSchema,
             },
         },
         handler: async (request, reply) => {
             const { projectId, templateId } = request.params;
-            const { mock: mockId } = request.query;
+            const { mockId } = request.query;
 
             const body = await previewTemplate({
                 projectId,
@@ -40,7 +35,7 @@ export async function previewRoutes(app: FastifyInstance) {
             });
 
             // TODO: Add a proper HTML template for the preview page
-            return reply.status(200).send(`<!DOCTYPE html>
+            return reply.status(200).type('text/html').send(`<!DOCTYPE html>
             <html lang="en">
                 <head>
                     <meta charset="UTF-8">
