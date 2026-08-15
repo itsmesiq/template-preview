@@ -1,11 +1,11 @@
-import { Node, NodeType } from "../parser/node.js";
-import { Runtime } from "../runtime/index.js";
-import { evaluateExpression } from "./evaluateExpression.js";
-import { executeCode } from "./executeCode.js";
-import { renderComponent } from "./renderComponent.js";
+import { Node, NodeType } from '../parser/node.js';
+import { Runtime } from '../runtime/index.js';
+import { evaluateExpression } from './evaluateExpression.js';
+import { executeCode } from './executeCode.js';
+import { renderComponent } from './renderComponent.js';
 
 export async function interpret(nodes: Node[], runtime: Runtime): Promise<string> {
-    let html = "";
+    let html = '';
 
     for (const node of nodes) {
         switch (node.type) {
@@ -14,18 +14,17 @@ export async function interpret(nodes: Node[], runtime: Runtime): Promise<string
                 break;
 
             case NodeType.Expression: {
+                const component = runtime.getComponent(node.name);
+
+                if (component) {
+                    html += await renderComponent(node.name, node.args, runtime);
+                    break;
+                }
+
                 const value = evaluateExpression(node.expression, runtime);
 
                 if (value !== undefined) {
                     html += String(value);
-                    break;
-                }
-
-                try {
-                    html += await renderComponent(node.name, node.args, runtime);
-                } catch(error) {
-                    console.error(error);
-                    throw error;
                 }
 
                 break;
@@ -37,12 +36,7 @@ export async function interpret(nodes: Node[], runtime: Runtime): Promise<string
             case NodeType.If: {
                 const result = evaluateExpression(node.condition, runtime);
 
-                html += await interpret(
-                    result
-                        ? node.thenBranch
-                        : node.elseBranch,
-                    runtime,
-                );
+                html += await interpret(result ? node.thenBranch : node.elseBranch, runtime);
                 break;
             }
 
@@ -55,15 +49,15 @@ export async function interpret(nodes: Node[], runtime: Runtime): Promise<string
 
                 for (let index = 0; index < iterable.length; index++) {
                     const child = runtime.child();
-                
+
                     child.set(node.variable, iterable[index]);
-                
-                    child.set("for", {
+
+                    child.set('for', {
                         index,
                         first: index === 0,
                         last: index === iterable.length - 1,
                     });
-                
+
                     html += await interpret(node.body, child);
                 }
                 break;
