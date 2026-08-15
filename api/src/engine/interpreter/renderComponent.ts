@@ -1,3 +1,4 @@
+import { Component } from '../../types/Component.js';
 import { interpret } from '../interpreter/index.js';
 import { lexer } from '../parser/lexer.js';
 import { parser } from '../parser/parser.js';
@@ -5,7 +6,7 @@ import { Runtime } from '../runtime/index.js';
 import { evaluateExpression } from './evaluateExpression.js';
 
 export async function renderComponent(
-    template: string,
+    component: Component,
     args: Record<string, string>,
     runtime: Runtime,
 ): Promise<string> {
@@ -15,7 +16,7 @@ export async function renderComponent(
         child.set(key, evaluateExpression(expression, runtime));
     }
 
-    const tokens = lexer(template);
+    const tokens = lexer(component.content);
 
     const nodes = parser(tokens);
 

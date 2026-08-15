@@ -17,7 +17,7 @@ export async function interpret(nodes: Node[], runtime: Runtime): Promise<string
                 const component = runtime.getComponent(node.name);
 
                 if (component) {
-                    html += await renderComponent(node.name, node.args, runtime);
+                    html += await renderComponent(component, node.args, runtime);
                     break;
                 }
 

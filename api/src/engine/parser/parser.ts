@@ -1,5 +1,5 @@
-import { CodeNode, ExpressionNode, ForNode, IfNode, Node, NodeType, TextNode } from "./node.js";
-import { Token, TokenType } from "./token.js";
+import { CodeNode, ExpressionNode, ForNode, IfNode, Node, NodeType, TextNode } from './node.js';
+import { Token, TokenType } from './token.js';
 
 export function parser(tokens: Token[]): Node[] {
     const nodes: Node[] = [];
@@ -18,7 +18,7 @@ export function parser(tokens: Token[]): Node[] {
             continue;
         }
 
-        if (token.value.startsWith("~") && token.value.endsWith("~")) {
+        if (token.value.startsWith('~') && token.value.endsWith('~')) {
             nodes.push({
                 type: NodeType.Code,
                 value: token.value.slice(1, -1).trim(),
@@ -27,7 +27,7 @@ export function parser(tokens: Token[]): Node[] {
             continue;
         }
 
-        if (token.value.startsWith("if ")) {
+        if (token.value.startsWith('if ')) {
             const result = parseIf(tokens, i);
 
             nodes.push(result.node);
@@ -36,7 +36,7 @@ export function parser(tokens: Token[]): Node[] {
             continue;
         }
 
-        if (token.value.startsWith("for ")) {
+        if (token.value.startsWith('for ')) {
             const result = parseFor(tokens, i);
 
             nodes.push(result.node);
@@ -53,16 +53,30 @@ export function parser(tokens: Token[]): Node[] {
     return nodes;
 }
 
+// O parser de argumentos de Component atualmente não é realmente um parser de expressões; ele é um tokenizer baseado em whitespace.
+
 function parseExpression(expression: string): ExpressionNode {
-    console.log("Parsing expression:", expression);
     const parts = expression.trim().split(/\s+/);
 
     const name = parts.shift()!;
 
     const args: Record<string, string> = {};
 
-    for (const part of parts) {
-        const [key, value] = part.split(":");
+    for (let i = 0; i < parts.length; i++) {
+        const part = parts[i];
+
+        if (part.endsWith(':')) {
+            const key = part.slice(0, -1);
+            const value = parts[i + 1];
+
+            if (value !== undefined) {
+                args[key] = value;
+                i++;
+            }
+            continue;
+        }
+
+        const [key, value] = part.split(':');
 
         if (key && value) {
             args[key] = value;
@@ -93,11 +107,9 @@ function parseIf(tokens: Token[], startIndex: number): { node: IfNode; nextIndex
         const token = tokens[i];
 
         if (token.type === TokenType.Expression) {
-            if (token.value.startsWith("if ") || token.value.startsWith("for ")) {
+            if (token.value.startsWith('if ') || token.value.startsWith('for ')) {
                 depth++;
-            }
-
-            else if (token.value === "end") {
+            } else if (token.value === 'end') {
                 if (depth === 0) {
                     return {
                         node: {
@@ -111,9 +123,7 @@ function parseIf(tokens: Token[], startIndex: number): { node: IfNode; nextIndex
                 }
 
                 depth--;
-            }
-
-            else if (token.value.startsWith("else if ") && depth === 0) {
+            } else if (token.value.startsWith('else if ') && depth === 0) {
                 const nestedIfTokens: Token[] = [
                     {
                         ...token,
@@ -130,13 +140,11 @@ function parseIf(tokens: Token[], startIndex: number): { node: IfNode; nextIndex
 
                     if (nestedToken.type === TokenType.Expression) {
                         if (
-                            nestedToken.value.startsWith("if ") ||
-                            nestedToken.value.startsWith("for ")
+                            nestedToken.value.startsWith('if ') ||
+                            nestedToken.value.startsWith('for ')
                         ) {
                             nestedDepth++;
-                        }
-
-                        else if (nestedToken.value === "end") {
+                        } else if (nestedToken.value === 'end') {
                             if (nestedDepth === 0) {
                                 nestedIfTokens.push(nestedToken);
                                 break;
@@ -161,9 +169,7 @@ function parseIf(tokens: Token[], startIndex: number): { node: IfNode; nextIndex
                     },
                     nextIndex: i + 1,
                 };
-            }
-            
-            else if (token.value === "else" && depth === 0) {
+            } else if (token.value === 'else' && depth === 0) {
                 current = elseTokens;
                 i++;
                 continue;
@@ -197,11 +203,9 @@ function parseFor(tokens: Token[], startIndex: number): { node: ForNode; nextInd
         const token = tokens[i];
 
         if (token.type === TokenType.Expression) {
-            if (token.value.startsWith("for ") || token.value.startsWith("if ")) {
+            if (token.value.startsWith('for ') || token.value.startsWith('if ')) {
                 depth++;
-            }
-
-            else if (token.value === "end") {
+            } else if (token.value === 'end') {
                 if (depth === 0) {
                     return {
                         node: {

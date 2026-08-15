@@ -1,21 +1,20 @@
 import type { Component } from '../../types/Component.js';
-import { resolve } from './resolve.js';
+import { getRoot, resolve } from './resolve.js';
 
 export class Runtime {
     constructor(
-        private readonly values: Record<string, unknown>,
+        private readonly context: Record<string, unknown>,
         private readonly components: Map<string, Component>,
-        private readonly parent?: Runtime,
+        private readonly values: Record<string, unknown> = {},
     ) {}
 
     get(path: string): unknown {
-        const value = resolve(this.values, path);
+        const root = getRoot(path);
 
-        if (value !== undefined) {
-            return value;
+        if (Object.prototype.hasOwnProperty.call(this.values, root)) {
+            return resolve(this.values, path);
         }
-
-        return this.parent?.get(path);
+        return resolve(this.context, path);
     }
 
     set(path: string, value: unknown): void {
@@ -23,16 +22,11 @@ export class Runtime {
     }
 
     getComponent(name: string): Component | undefined {
-        const component = this.components.get(name);
-
-        if (component) {
-            return component;
-        }
-
-        return this.parent?.getComponent(name);
+        return this.components.get(name);
     }
 
     child(): Runtime {
-        return new Runtime({}, this.components, this);
+        const child = new Runtime(this.context, this.components);
+        return child;
     }
 }

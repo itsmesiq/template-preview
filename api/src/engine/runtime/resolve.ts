@@ -1,5 +1,9 @@
 import { VariableNotFoundError } from '../../errors/index.js';
 
+export function getRoot(path: string): string {
+    return path.replace('?.', '.').split('.')[0].split('[')[0];
+}
+
 export function resolve(object: unknown, path: string): unknown {
     if (!path) {
         return object;
