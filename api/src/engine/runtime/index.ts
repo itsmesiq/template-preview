@@ -26,7 +26,6 @@ export class Runtime {
     }
 
     child(): Runtime {
-        const child = new Runtime(this.context, this.components);
-        return child;
+        return new Runtime(this.context, this.components, { ...this.values });
     }
 }

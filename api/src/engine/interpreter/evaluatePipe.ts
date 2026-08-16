@@ -1,20 +1,19 @@
-import { functions } from "../functions/index.js";
-import { Runtime } from "../runtime/index.js";
-import { evaluateExpression } from "./evaluateExpression.js";
+import { functions } from '../functions/index.js';
+import { Runtime } from '../runtime/index.js';
+import { evaluateExpression } from './evaluateExpression.js';
 
 export function evaluatePipe(expression: string, runtime: Runtime): unknown {
-    const parts = expression.split("|").map(part => part.trim());
+    const parts = expression.split('|').map(part => part.trim());
 
     let value = evaluateExpression(parts.shift()!, runtime);
 
     for (const part of parts) {
-        console.log("PIPE:", part);
         if (value == null) {
             return value;
         }
         const { fn, args } = parseFunction(part);
 
-        const [namespace, method] = fn.split(".");
+        const [namespace, method] = fn.split('.');
 
         const callable = (functions as any)[namespace]?.[method];
 
@@ -22,17 +21,14 @@ export function evaluatePipe(expression: string, runtime: Runtime): unknown {
             throw new Error(`Function ${fn} not found`);
         }
 
-        value = callable(
-            value,
-            ...args.map(arg => evaluateExpression(arg, runtime)),
-        );
+        value = callable(value, ...args.map(arg => evaluateExpression(arg, runtime)));
     }
 
     return value;
 }
 
 function parseFunction(part: string): { fn: string; args: string[] } {
-    const firstSpace = part.indexOf(" ");
+    const firstSpace = part.indexOf(' ');
 
     if (firstSpace === -1) {
         return {
@@ -54,10 +50,10 @@ function parseFunction(part: string): { fn: string; args: string[] } {
 function splitArguments(text: string): string[] {
     const args: string[] = [];
 
-    let current = "";
+    let current = '';
 
     let depth = 0;
-    let quote = "";
+    let quote = '';
 
     for (let i = 0; i < text.length; i++) {
         const char = text[i];
@@ -66,7 +62,7 @@ function splitArguments(text: string): string[] {
             current += char;
 
             if (char === quote) {
-                quote = "";
+                quote = '';
             }
 
             continue;
@@ -78,22 +74,22 @@ function splitArguments(text: string): string[] {
             continue;
         }
 
-        if (char === "(") {
+        if (char === '(') {
             depth++;
             current += char;
             continue;
         }
 
-        if (char === ")") {
+        if (char === ')') {
             depth--;
             current += char;
             continue;
         }
 
-        if (char === " " && depth === 0) {
+        if (char === ' ' && depth === 0) {
             if (current.trim()) {
                 args.push(current.trim());
-                current = "";
+                current = '';
             }
 
             continue;

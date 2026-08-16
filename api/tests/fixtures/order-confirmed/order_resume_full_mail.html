@@ -1,0 +1,163 @@
+{{~
+    numero_pedido = pedido?.pedido_id ?? pedido?.id ?? "-"
+    link_pedido = "https://www.averarabrand.com.br/account?orderId=" + numero_pedido
+    valor_subtotal = pedido?.valor_sub_total
+    valor_total = pedido?.valor_total
+    valor_desconto = pedido?.valor_desconto
+    valor_frete = pedido?.frete?.valor_frete
+
+    if valor_subtotal != ""
+        valor_subtotal = valor_subtotal | string.strip | string.split "."
+        subtotal_real = valor_subtotal[0] | string.strip
+        subtotal_centavos = valor_subtotal[1] | string.strip
+
+        if subtotal_centavos.size == 1
+            subtotal_centavos = subtotal_centavos + "0"
+        end
+
+        valor_subtotal = "R$ " + subtotal_real + "," + subtotal_centavos
+    end
+
+    if valor_total != ""
+        valor_total = valor_total | string.strip | string.split "."
+        total_real = valor_total[0] | string.strip
+        total_centavos = valor_total[1] | string.strip
+
+        if total_centavos.size == 1
+            total_centavos = total_centavos + "0"
+        end
+
+        valor_total = "R$ " + total_real + "," + total_centavos
+    end
+
+    if valor_desconto != ""
+        valor_desconto = valor_desconto | string.strip | string.split "."
+        desconto_real = valor_desconto[0] | string.strip
+        desconto_centavos = valor_desconto[1] | string.strip
+
+        if desconto_centavos.size == 1
+            desconto_centavos = desconto_centavos + "0"
+        end
+
+        valor_desconto = "R$ " + desconto_real + "," + desconto_centavos
+    end
+
+    if valor_frete != ""
+        valor_frete = valor_frete | string.strip | string.split "."
+        frete_real = valor_frete[0] | string.strip
+        frete_centavos = valor_frete[1] | string.strip
+
+        if frete_centavos.size == 1
+            frete_centavos = frete_centavos + "0"
+        end
+
+        valor_frete = "R$ " + frete_real + "," + frete_centavos
+
+        if valor_frete == "R$ 0,00"
+            valor_frete = "Grátis"
+        end
+    end
+~}}
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="width:488px; font-family: 'Poppins', Arial, Helvetica, sans-serif;">
+    <tbody>
+        <tr style="font-size: 12px; font-weight: 400; line-height: 150%; text-transform: uppercase; letter-spacing: 0.36px; color: #fff;">
+            <td align="left" style="background-color: #030A2F; border-radius: 4px 0 0 4px; padding: 4px 12px;"><p style="margin: 0; font-size: 14px; line-height: 150%; font-weight: 400; letter-spacing: 0.35px; color: #fff;">Resumo do Pedido</p></td>
+            <td align="right" style="background-color: #030A2F; border-radius: 0 4px 4px 0; padding: 4px 12px;"><p style="margin: 0; font-size: 14px; line-height: 150%; font-weight: 400; letter-spacing: 0.35px; color: #fff;">#{{ pedido?.pedido_id }}</p></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        {{ for product in pedido?.produtos }}
+                        {{ product_full_mail product: product }}   
+                        {{ if !for.last }}
+                        <tr>
+                            <td colspan="3" style="border-bottom: 1px solid rgba(56, 39, 5, 0.18);"></td>
+                        </tr>
+                        {{ end }}                             
+                        {{ end }}                        
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 20px 0 16px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <td align="left" valign="top">
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: left; font-size: 12px; font-weight: 300; line-height: 180%; letter-spacing: 0.3px; color: #000;">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2" style="font-size: 14px; font-weight: 400; line-height: 150%; letter-spacing: 0.36px; text-transform: uppercase; padding-bottom: 8px;">Valor do Pedido</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Itens</td>
+                                            <td>{{ valor_subtotal }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Entrega</td>
+                                            <td>{{ valor_frete }}</td>
+                                        </tr>
+                                        {{ if valor_desconto != "R$ 0,00" }}
+                                        <tr>
+                                            <td>Desconto</td>
+                                            <td>{{ valor_desconto }}</td>
+                                        </tr>
+                                        {{ end }}
+                                        <tr>
+                                            <td style="font-weight: 700;">Total</td>
+                                            <td style="font-weight: 700;">{{ valor_total }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td align="right" valign="top">
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: right; font-size: 12px; font-weight: 300; line-height: 180%; letter-spacing: 0.3px; color: #000;">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2" style="font-size: 14px; font-weight: 400; line-height: 150%; letter-spacing: 0.36px; color: #000; text-transform: uppercase; padding-bottom: 8px;">Endereço de Entrega</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: 600;">{{ pedido?.frete?.endereco?.destinatario }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ pedido?.frete?.endereco?.logradouro }}, {{ pedido?.frete?.endereco?.numero }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ pedido?.frete?.endereco?.bairro }} - {{ pedido?.frete?.endereco?.cidade }} - {{ pedido?.frete?.endereco?.estado }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ pedido?.frete?.endereco?.cep }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+           <td colspan="3" style="border-bottom: 1px solid rgba(56, 39, 5, 0.18);"></td> 
+        </tr>
+        <tr>
+            <td style="font-size: 14px; font-weight: 400; line-height: 150%; letter-spacing: 0.36px; text-transform: uppercase; padding: 16px 0 40px;">Forma de Pagamento</td>
+            <td style="text-align: right; font-size: 12px; font-weight: 700; line-height: 180%; letter-spacing: 0.3px; color: #000; padding: 16px 0 40px;">
+                {{ for pagamento in pedido?.formapagamento }}
+                {{ pagamento?.nome }}
+                {{ if !for.last }}
+                "|"
+                {{ end }}
+                {{ end }}
+            </td>                                     
+        </tr>
+        <tr align="center">
+            <td colspan="2" style="padding: 12px 0 32px; height: 40px;">
+                <a href="{{ link_pedido }}" target="_blank" style="font-size: 12px; font-weight: 400; line-height: 125%; text-decoration: none; text-transform: uppercase; color: #000; padding: 10px 24px; border: 1px solid black; border-radius: 5px;">Acompanhe seu Pedido</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -4,7 +4,6 @@ export const stringFunctions = {
     },
 
     split(value: unknown, separator: string) {
-        console.log("split", { value, separator });
         return String(value).split(separator);
     },
 
@@ -17,12 +16,10 @@ export const stringFunctions = {
     },
 
     index_of(value: unknown, search: string) {
-        console.log("index_of", { value, search });
         return String(value).indexOf(search);
     },
 
     slice(value: unknown, start: number, end?: number) {
-        console.log("slice", { value, start, end });
         return String(value).slice(start, end);
     },
 
@@ -33,7 +30,7 @@ export const stringFunctions = {
     downcase(value: unknown) {
         const text = String(value);
 
-        if(text.length === 0) {
+        if (text.length === 0) {
             return text;
         }
 
@@ -56,6 +53,9 @@ export const stringFunctions = {
         if (text.length === 0) {
             return text;
         }
-        return text.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
-    }
+        return text
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    },
 };
