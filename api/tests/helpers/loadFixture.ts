@@ -23,7 +23,7 @@ export async function loadFixture(name: string): Promise<Fixture> {
 
     const template = await readFile(path.join(fixtureDir, 'order_confirmed.html'), 'utf-8');
 
-    const contextContent = await readFile(path.join(fixtureDir, 'order_confirmed.json'), 'utf-8');
+    const contextContent = await readFile(path.join(fixtureDir, 'context.json'), 'utf-8');
 
     const context = JSON.parse(contextContent) as RenderContext;
 

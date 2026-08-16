@@ -19,4 +19,12 @@ describe('render', () => {
         expect(html).not.toContain('{{');
         expect(html).not.toContain('}}');
     });
+
+    test('renders the order-confirmed email with split order mock', async () => {
+        const fixture = await loadFixture('order-confirmed-split');
+
+        const html = await render(fixture.template, fixture.context, fixture.components);
+
+        expect(html).toContain('Vestido deborah Amarelo');
+    });
 });

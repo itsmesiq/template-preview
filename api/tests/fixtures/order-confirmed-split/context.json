@@ -1,0 +1,637 @@
+{
+	"configuracao": {
+		"nome_ecommerce": "Ave Rara",
+		"url_carrinho": "https://averara.checkout.fbits.store/",
+		"url_ecommerce": "https://www.averarabrand.com.br/",
+		"url_opt_in": "",
+		"url_recursos": "https://averara.recursos.fbits.store/"
+	},
+  "pedido": {
+    "data": "05/08/2026",
+    "data_pagamento": "",
+    "hora": "23:14:48",
+    "pontos_debito": "",
+    "valor_credito_fidelidade": "",
+    "valor_desconto": "20.00",
+    "valor_servico": "0,00",
+    "valor_sub_total": "2140.0",
+    "valor_total": "2120.0",
+    "contacorrente": 0,
+    "carrinho_id": "FD80DB94-8169-4422-8A1E-DF61A4BC0802",
+    "is_split": true,
+    "formapagamento": [
+      {
+        "imagem": "",
+        "nome": "Gateway - Pix",
+        "numero_parcelas": "1",
+        "parcelamento_formatado": "",
+        "tipo": "PIX",
+        "valor_parcelas": "",
+        "link_pagamento": "",
+        "boleto": {
+          "url": ""
+        },
+        "pix": {
+          "qrcode_link_pagamento": "",
+          "qrcode_imagem_url": "",
+          "codigo_qrcode": "",
+          "dt_expiracao_qr_code": ""
+        },
+        "deposito_bancario": {
+          "url": ""
+        }
+      }
+    ],
+    "valor_forma_pagamento": 0,
+    "pedido_id": 618678,
+    "produtos": [
+      {
+        "valor_adicional_produto": [
+          {
+            "texto": "",
+            "valor": ""
+          }
+        ],
+        "atributos": "2un - COR: AMARELO , TAMANHO: 38",
+        "digital": "",
+        "embalagens": "",
+        "id": 1001,
+        "imagem": "https://averara.fbitsstatic.net/img/p/450221/450221-6.jpg?w=100&h=100&v=no-change&qs=ignore",
+        "nome": "Vestido deborah Amarelo",
+        "personalizacoes": "",
+        "preco_total": "1396.0",
+        "preco_unitario": "698.0",
+        "primeiro_prazo": "",
+        "quantidade": 2,
+        "rastreamento": "",
+        "segundo_prazo": "",
+        "seller": "",
+        "sku": "SKU-1001",
+        "url_alias": "",
+        "url_produto_id": "",
+        "valor_personalizacao": "0,00",
+        "situacao": {
+          "pedido_produto_id": "",
+          "situacao_pedido_id": "",
+          "situacao_nome": ""
+        }
+      },
+			{
+				"valor_adicional_produto": [
+					{
+						"texto": "",
+						"valor": ""
+					}
+				],
+				"atributos": "3un - COR: MARINHO , TAMANHO: 36",
+				"digital": "",
+				"embalagens": "",
+				"id": "450166",
+				"imagem": "https://averara.fbitsstatic.net/img/p/450151/450151-1.jpg?w=100&h=100&v=no-change&qs=ignore",
+				"nome": "Blusa deborah Marinho",
+				"personalizacoes": "",
+				"preco_total": "744.0",
+				"preco_unitario": "248.0",
+				"primeiro_prazo": "",
+				"quantidade": "3",
+				"rastreamento": "",
+				"segundo_prazo": "",
+				"seller": "",
+				"sku": "TPSM002201136",
+				"url_alias": "",
+				"url_produto_id": "",
+				"valor_personalizacao": "0,00",
+				"situacao": {
+					"pedido_produto_id": "",
+					"situacao_pedido_id": "",
+					"situacao_nome": ""
+				}
+			}      
+    ],
+    "promocao": [
+      {
+        "observacao": "",
+        "valor": 0
+      }
+    ],
+    "usuario": {
+      "nome": "Ana Siqueira",
+      "primeiro_nome": "Ana",
+      "email": "ana@email.com",
+      "usuario_master_nome": "",
+      "usuario_master_id": 0
+    },
+    "formulas": {
+      "novo_calculo": [
+        {
+          "nome": "",
+          "valor": 0
+        }
+      ]
+    },
+    "frete": {
+			"endereco": {
+				"bairro": "Centro",
+				"cep": "28613-000",
+				"cidade": "Nova Friburgo",
+				"complemento": "",
+				"destinatario": "Ana Siqueira",
+				"estado": "RJ",
+				"logradouro": "Avenida Alberto Braune",
+				"numero": "230"
+			},
+			"entrega_contrato": "",
+			"entrega_estimativa": "",
+			"entrega_estimativa_data": "",
+			"prazo_em_dias": "",
+			"prazo_em_horas": "",
+			"tipo_prazo_em_horas": "false",
+			"nome_cotacao": "PAC",
+			"promocaofrete": "0",
+			"texto_estimativa": "",
+			"texto_indicativo": "",
+			"valor_frete": "0.0",
+			"nome_grupo_frete": ""
+		},
+		"personalizacao": {
+			"valor_personalizacoes": ""
+		},
+		"aliquota": {
+			"texto_aliquotas": "TextoAliquotas",
+			"valor_aliquotas": "R$ 0,00"
+		},
+		"embalagem": {
+			"valor_embalagens": "0,00"
+		},
+		"assinatura": {
+			"data": "04/08/2026",
+			"grupo_assinatura": {
+				"descricao": "Descrição do grupo de assinatura",
+				"nome": "Nome do grupo de assinatura"
+			},
+			"id": "0",
+			"texto_recorrencia": "TextoRecorrencia",
+			"valor_total": "0,00"
+		},
+		"rastreamento": {
+			"rastreamento": "SL123456789BR",
+			"url": "https://rastreamento.exemplo.com.br/SL123456789BR",
+			"nota_fiscal": "0000000000000000000055024000365709190000",
+			"url_nfe": "https://nfe.exemplo.com/123456",
+			"serie_nfe": "24",
+			"chave_acesso_nfe": "51080701212344000127550010000000981364112281"
+		},
+    "pedidos_split_agregados": {
+      "valor_subtotal_agregado": "2140.0",
+      "valor_total_agregado": "2160.0",
+      "valor_frete_agregado": "40.00",
+      "valor_desconto_agregado": "20.00",
+      "valor_aliquotas_agregado": "",
+      "valor_embalagens_agregado": "",
+      "valor_personalizacoes_agregado": "",
+      "identificador": "SPLIT-618678",
+      "produtos_agregados": [
+        {
+          "id": 1001,
+          "nome": "Vestido deborah Amarelo",
+          "imagem": "https://averara.fbitsstatic.net/img/p/450221/450221-6.jpg?w=100&h=100&v=no-change&qs=ignore",
+          "quantidade": 2,
+          "preco_unitario": "698.0",
+          "preco_total": "1396.0",
+          "atributos": "2un - COR: AMARELO , TAMANHO: 38",
+          "embalagens": "",
+          "personalizacoes": "",
+          "sku": "SKU-1001",
+          "seller": ""
+        },
+        {
+          "id": 1001,
+          "nome": "Blusa deborah Marinho",
+          "imagem": "https://averara.fbitsstatic.net/img/p/450151/450151-1.jpg?w=100&h=100&v=no-change&qs=ignore",
+          "quantidade": 3,
+          "preco_unitario": "248.0",
+          "preco_total": "1396.0",
+          "atributos": "3un - COR: AMARELO , TAMANHO: 38",
+          "embalagens": "",
+          "personalizacoes": "",
+          "sku": "TPSM002201136",
+          "seller": ""
+        }        
+      ],
+      "pedidos": [
+        {
+          "pedido_id": 618679,
+          "valor_subtotal": "248.00",
+          "valor_total": "263.00",
+          "valor_desconto": "10.00",
+          "frete": {
+            "valor_frete": "15.00",
+            "nome_grupo_frete": "PAC",
+            "entrega_estimativa": "5 dias úteis",
+            "nome_cotacao": "PAC",
+            "prazo_em_dias": 5,
+            "prazo_em_horas": 0
+          },
+          "produtos": [
+            {
+              "id": 1001,
+              "nome": "Vestido deborah Amarelo",
+              "imagem": "https://averara.fbitsstatic.net/img/p/450221/450221-6.jpg?w=100&h=100&v=no-change&qs=ignore",
+              "quantidade": 2,
+              "preco_unitario": "698.0",
+              "preco_total": "1396.0",
+              "atributos": "2un - COR: AMARELO , TAMANHO: 38",
+              "embalagens": "",
+              "personalizacoes": "",
+              "sku": "SKU-1001",
+              "seller": ""
+            }
+          ]
+        },
+        {
+          "pedido_id": 618680,
+          "valor_subtotal": "248.00",
+          "valor_total": "263.00",
+          "valor_desconto": "10.00",
+          "frete": {
+            "valor_frete": "25.00",
+            "nome_grupo_frete": "PAC",
+            "entrega_estimativa": "5 dias úteis",
+            "nome_cotacao": "PAC",
+            "prazo_em_dias": 5,
+            "prazo_em_horas": 0
+          },
+          "produtos": [
+            {
+              "id": 1001,
+              "nome": "Blusa deborah Marinho",
+              "imagem": "https://averara.fbitsstatic.net/img/p/450151/450151-1.jpg?w=100&h=100&v=no-change&qs=ignore",
+              "quantidade": 3,
+              "preco_unitario": "248.0",
+              "preco_total": "1396.0",
+              "atributos": "3un - COR: AMARELO , TAMANHO: 38",
+              "embalagens": "",
+              "personalizacoes": "",
+              "sku": "TPSM002201136",
+              "seller": ""
+            }  
+          ]
+        }
+      ],
+      "endereco": {
+				"bairro": "Centro",
+				"cep": "28613-000",
+				"cidade": "Nova Friburgo",
+				"complemento": "",
+				"destinatario": "Ana Siqueira",
+				"estado": "RJ",
+				"logradouro": "Avenida Alberto Braune",
+				"numero": "230"
+      },
+      "formapagamento": [
+        {
+          "imagem": "",
+          "nome": "Gateway - Pix",
+          "numero_parcelas": "1",
+          "parcelamento_formatado": "",
+          "tipo": "PIX",
+          "valor_parcelas": "",
+          "link_pagamento": "",
+          "boleto": {
+            "url": ""
+          },
+          "pix": {
+            "qrcode_link_pagamento": "",
+            "qrcode_imagem_url": "",
+            "codigo_qrcode": "",
+            "dt_expiracao_qr_code": ""
+          },
+          "deposito_bancario": {
+            "url": ""
+          }
+        }
+      ],
+      "usuario": {
+        "nome": "Ana Siqueira",
+        "primeiro_nome": "Ana",
+        "email": "ana@email.com",
+        "usuario_master_nome": "",
+        "usuario_master_id": 0
+      }
+    },
+    "pedidos_split_detalhados": [
+      {
+        "data": "05/08/2026",
+        "data_pagamento": "",
+        "hora": "14:30",
+        "pontos_debito": 0,
+        "valor_credito_fidelidade": 0,
+        "valor_desconto": "10.00",
+        "valor_desconto_promocao": 0,
+        "valor_desconto_pricing": 0,
+        "valor_desconto_pagamento": 0,
+        "valor_servico": "",
+        "valor_sub_total": "248.00",
+        "valor_total": "263.00",
+        "contacorrente": 0,
+        "estornado": false,
+        "carrinho_id": "",
+        "is_split": true,
+        "formapagamento": [
+          {
+            "imagem": "",
+            "nome": "Gateway - Pix",
+            "numero_parcelas": "1",
+            "parcelamento_formatado": "",
+            "tipo": "PIX",
+            "valor_parcelas": "526.00",
+            "link_pagamento": "",
+            "boleto": {
+              "url": ""
+            },
+            "pix": {
+              "qrcode_link_pagamento": "",
+              "qrcode_imagem_url": "",
+              "codigo_qrcode": "",
+              "dt_expiracao_qr_code": ""
+            },
+            "deposito_bancario": {
+              "url": ""
+            }
+          }
+        ],
+        "valor_forma_pagamento": 0,
+        "pedido_id": 618679,
+        "produtos": [
+          {
+            "valor_adicional_produto": [
+              {
+                "texto": "",
+                "valor": 0
+              }
+            ],
+            "atributos": "1un - COR: MARINHO , TAMANHO: 36",
+            "digital": "",
+            "embalagens": "",
+            "id": 1001,
+            "imagem": "https://averara.fbitsstatic.net/img/p/450221/450221-6.jpg?w=100&h=100&v=no-change&qs=ignore",
+            "nome": "Tênis Casual",
+            "personalizacoes": "",
+            "preco_total": "248.00",
+            "preco_unitario": "248.00",
+            "primeiro_prazo": "",
+            "quantidade": 1,
+            "rastreamento": "",
+            "segundo_prazo": "",
+            "seller": "",
+            "sku": "SKU-1001",
+            "url_alias": "",
+            "url_produto_id": "",
+            "valor_personalizacao": 0,
+            "situacao": {
+              "pedido_produto_id": 0,
+              "situacao_pedido_id": 0,
+              "situacao_nome": ""
+            }
+          }
+        ],
+        "promocao": [
+          {
+            "observacao": "",
+            "valor": 0
+          }
+        ],
+        "usuario": {
+          "nome": "Ana Siqueira",
+          "primeiro_nome": "Ana",
+          "email": "ana@email.com",
+          "usuario_master_nome": "",
+          "usuario_master_id": 0
+        },
+        "formulas": {
+          "novo_calculo": [
+            {
+              "nome": "",
+              "valor": 0
+            }
+          ]
+        },
+        "frete": {
+          "endereco": {
+            "bairro": "",
+            "cep": "",
+            "cidade": "",
+            "complemento": "",
+            "destinatario": "",
+            "estado": "",
+            "logradouro": "",
+            "numero": ""
+          },
+          "entrega_contrato": "",
+          "entrega_estimativa": "5 dias úteis",
+          "entrega_estimativa_data": "",
+          "prazo_em_dias": 0,
+          "prazo_em_horas": 0,
+          "tipo_prazo_em_horas": false,
+          "nome_cotacao": "",
+          "promocaofrete": 0,
+          "texto_estimativa": "",
+          "texto_indicativo": "",
+          "valor_frete": "15.00",
+          "nome_grupo_frete": "PAC"
+        },
+        "personalizacao": {
+          "valor_personalizacoes": 0
+        },
+        "aliquota": {
+          "texto_aliquotas": "",
+          "valor_aliquotas": 0
+        },
+        "embalagem": {
+          "valor_embalagens": 0
+        },
+        "assinatura": {
+          "data": "",
+          "grupo_assinatura": {
+            "descricao": "",
+            "nome": ""
+          },
+          "id": 0,
+          "texto_recorrencia": "",
+          "valor_total": ""
+        },
+        "rastreamento": {
+          "rastreamento": "ALSKJDLAKSJDL",
+          "url": "",
+          "nota_fiscal": "",
+          "url_nfe": "",
+          "serie_nfe": "",
+          "chave_acesso_nfe": ""
+        }
+      },
+      {
+        "data": "05/08/2026",
+        "data_pagamento": "",
+        "hora": "14:30",
+        "pontos_debito": 0,
+        "valor_credito_fidelidade": 0,
+        "valor_desconto": "10.00",
+        "valor_desconto_promocao": 0,
+        "valor_desconto_pricing": 0,
+        "valor_desconto_pagamento": 0,
+        "valor_servico": "",
+        "valor_sub_total": "248.00",
+        "valor_total": "263.00",
+        "contacorrente": 0,
+        "estornado": false,
+        "carrinho_id": "",
+        "is_split": true,
+        "formapagamento": [
+          {
+            "imagem": "",
+            "nome": "Gateway - Pix",
+            "numero_parcelas": "1",
+            "parcelamento_formatado": "",
+            "tipo": "PIX",
+            "valor_parcelas": "526.00",
+            "link_pagamento": "",
+            "boleto": {
+              "url": ""
+            },
+            "pix": {
+              "qrcode_link_pagamento": "",
+              "qrcode_imagem_url": "",
+              "codigo_qrcode": "",
+              "dt_expiracao_qr_code": ""
+            },
+            "deposito_bancario": {
+              "url": ""
+            }
+          }
+        ],
+        "valor_forma_pagamento": 0,
+        "pedido_id": 618680,
+        "produtos": [
+          {
+            "valor_adicional_produto": [
+              {
+                "texto": "",
+                "valor": 0
+              }
+            ],
+            "atributos": "1un - COR: MARINHO , TAMANHO: 36",
+            "digital": "",
+            "embalagens": "",
+            "id": 1001,
+            "imagem": "https://averara.fbitsstatic.net/img/p/450221/450221-6.jpg?w=100&h=100&v=no-change&qs=ignore",
+            "nome": "Tênis Casual",
+            "personalizacoes": "",
+            "preco_total": "248.00",
+            "preco_unitario": "248.00",
+            "primeiro_prazo": "",
+            "quantidade": 1,
+            "rastreamento": "",
+            "segundo_prazo": "",
+            "seller": "",
+            "sku": "SKU-1001",
+            "url_alias": "",
+            "url_produto_id": "",
+            "valor_personalizacao": 0,
+            "situacao": {
+              "pedido_produto_id": 0,
+              "situacao_pedido_id": 0,
+              "situacao_nome": ""
+            }
+          }
+        ],
+        "promocao": [
+          {
+            "observacao": "",
+            "valor": 0
+          }
+        ],
+        "usuario": {
+          "nome": "Ana Siqueira",
+          "primeiro_nome": "Ana",
+          "email": "ana@email.com",
+          "usuario_master_nome": "",
+          "usuario_master_id": 0
+        },
+        "formulas": {
+          "novo_calculo": [
+            {
+              "nome": "",
+              "valor": 0
+            }
+          ]
+        },
+        "frete": {
+          "endereco": {
+            "bairro": "",
+            "cep": "",
+            "cidade": "",
+            "complemento": "",
+            "destinatario": "",
+            "estado": "",
+            "logradouro": "",
+            "numero": ""
+          },
+          "entrega_contrato": "",
+          "entrega_estimativa": "5 dias úteis",
+          "entrega_estimativa_data": "",
+          "prazo_em_dias": 0,
+          "prazo_em_horas": 0,
+          "tipo_prazo_em_horas": false,
+          "nome_cotacao": "",
+          "promocaofrete": 0,
+          "texto_estimativa": "",
+          "texto_indicativo": "",
+          "valor_frete": "15.00",
+          "nome_grupo_frete": "PAC"
+        },
+        "personalizacao": {
+          "valor_personalizacoes": 0
+        },
+        "aliquota": {
+          "texto_aliquotas": "",
+          "valor_aliquotas": 0
+        },
+        "embalagem": {
+          "valor_embalagens": 0
+        },
+        "assinatura": {
+          "data": "",
+          "grupo_assinatura": {
+            "descricao": "",
+            "nome": ""
+          },
+          "id": 0,
+          "texto_recorrencia": "",
+          "valor_total": ""
+        },
+        "rastreamento": {
+          "rastreamento": "KAJSHDKAJSDH",
+          "url": "",
+          "nota_fiscal": "",
+          "url_nfe": "",
+          "serie_nfe": "",
+          "chave_acesso_nfe": ""
+        }
+      }
+    ]
+  },
+  "evento": {
+    "data_evento": "",
+    "endereco": {
+      "endereco1": "",
+      "endereco2": ""
+    },
+    "nome_dono_evento": "",
+    "quantida_de_dias_para_evento": 0,
+    "titulo": "",
+    "tipo_evento": {
+      "titulo": ""
+    },
+    "tipo_usuario": ""
+  }
+}

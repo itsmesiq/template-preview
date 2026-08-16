@@ -92,4 +92,44 @@ describe('conditions', () => {
 
         expect(html).toBe('YES');
     });
+
+    test('greater than or equal comparison works', async () => {
+        const html = await render(
+            `{{ if value >= 5 }}YES{{ else }}NO{{ end }}`,
+            { value: 5 },
+            new Map(),
+        );
+
+        expect(html).toBe('YES');
+    });
+
+    test('greater than or equal comparison works when false', async () => {
+        const html = await render(
+            `{{ if value >= 5 }}YES{{ else }}NO{{ end }}`,
+            { value: 4 },
+            new Map(),
+        );
+
+        expect(html).toBe('NO');
+    });
+
+    test('less than or equal comparison works', async () => {
+        const html = await render(
+            `{{ if value <= 5 }}YES{{ else }}NO{{ end }}`,
+            { value: 5 },
+            new Map(),
+        );
+
+        expect(html).toBe('YES');
+    });
+
+    test('less than or equal comparison works when false', async () => {
+        const html = await render(
+            `{{ if value <= 5 }}YES{{ else }}NO{{ end }}`,
+            { value: 6 },
+            new Map(),
+        );
+
+        expect(html).toBe('NO');
+    });
 });
