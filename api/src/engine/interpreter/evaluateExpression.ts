@@ -1,17 +1,11 @@
-import { Runtime } from "../runtime/index.js";
-import { evaluatePipe } from "./evaluatePipe.js";
+import { Runtime } from '../runtime/index.js';
+import { evaluatePipe } from './evaluatePipe.js';
 
-export function evaluateExpression(expression: string, runtime: Runtime,): unknown {
+export function evaluateExpression(expression: string, runtime: Runtime): unknown {
     expression = expression.trim();
 
-    if (
-        expression.startsWith("(") &&
-        expression.endsWith(")")
-    ) {
-        return evaluateExpression(
-            expression.slice(1, -1).trim(),
-            runtime,
-        );
+    if (expression.startsWith('(') && expression.endsWith(')')) {
+        return evaluateExpression(expression.slice(1, -1).trim(), runtime);
     }
 
     if (hasPipe(expression)) {
@@ -24,26 +18,30 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
         const left = expression.slice(0, logicalOr).trim();
         const right = expression.slice(logicalOr + 2).trim();
 
-        return Boolean(evaluateExpression(left, runtime))
-            || Boolean(evaluateExpression(right, runtime));
-    }    
+        return (
+            Boolean(evaluateExpression(left, runtime)) ||
+            Boolean(evaluateExpression(right, runtime))
+        );
+    }
 
     const logicalAnd = findLogicalAnd(expression);
-    
+
     if (logicalAnd !== -1) {
         const left = expression.slice(0, logicalAnd).trim();
         const right = expression.slice(logicalAnd + 2).trim();
-    
-        return Boolean(evaluateExpression(left, runtime))
-            && Boolean(evaluateExpression(right, runtime));
+
+        return (
+            Boolean(evaluateExpression(left, runtime)) &&
+            Boolean(evaluateExpression(right, runtime))
+        );
     }
 
     if (isUnaryNot(expression)) {
         return !evaluateExpression(expression.slice(1).trim(), runtime);
     }
 
-    if (expression.includes("??")) {
-        const parts = expression.split("??").map(part => part.trim());
+    if (expression.includes('??')) {
+        const parts = expression.split('??').map(part => part.trim());
 
         for (const part of parts) {
             if (
@@ -66,7 +64,7 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
     const question = findTernary(expression);
 
     if (question !== -1) {
-        const colon = expression.indexOf(":", question);
+        const colon = expression.indexOf(':', question);
 
         const condition = expression.slice(0, question).trim();
         const whenTrue = expression.slice(question + 1, colon).trim();
@@ -77,19 +75,19 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
             : evaluateExpression(whenFalse, runtime);
     }
 
-    if (expression.includes("!=")){
-        const index = expression.indexOf("!=");
+    if (expression.includes('!=')) {
+        const index = expression.indexOf('!=');
         const left = expression.slice(0, index).trim();
         const right = expression.slice(index + 2).trim();
-        
+
         const leftValue = evaluateExpression(left, runtime);
         const rightValue = evaluateExpression(right, runtime);
 
         return notEquals(leftValue, rightValue);
     }
 
-    if (expression.includes("==")){
-        const index = expression.indexOf("==");
+    if (expression.includes('==')) {
+        const index = expression.indexOf('==');
         const left = expression.slice(0, index).trim();
         const right = expression.slice(index + 2).trim();
 
@@ -99,29 +97,39 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
         return equals(leftValue, rightValue);
     }
 
-    if (expression.includes("+")) {
-        const parts = expression.split("+").map(p => p.trim());
-    
-        const values = parts.map(part => evaluateExpression(part, runtime));
-    
-        if (values.every(v => typeof v === "number")) {
-            return values.reduce((a, b) => Number(a) + Number(b));
-        }
-    
-        return values
-            .map(v => v ?? "")
-            .join("");
+    const relational = findRelationalOperator(expression);
+
+    if (relational) {
+        const left = expression.slice(0, relational.index).trim();
+        const right = expression.slice(relational.index + relational.operator.length).trim();
+
+        const leftValue = evaluateExpression(left, runtime);
+        const rightValue = evaluateExpression(right, runtime);
+
+        return compare(leftValue, rightValue, relational.operator);
     }
 
-    if (expression === "null") {
+    if (expression.includes('+')) {
+        const parts = expression.split('+').map(p => p.trim());
+
+        const values = parts.map(part => evaluateExpression(part, runtime));
+
+        if (values.every(v => typeof v === 'number')) {
+            return values.reduce((a, b) => Number(a) + Number(b));
+        }
+
+        return values.map(v => v ?? '').join('');
+    }
+
+    if (expression === 'null') {
         return null;
     }
 
-    if (expression === "true") {
+    if (expression === 'true') {
         return true;
     }
 
-    if (expression === "false") {
+    if (expression === 'false') {
         return false;
     }
 
@@ -137,12 +145,12 @@ export function evaluateExpression(expression: string, runtime: Runtime,): unkno
     if (!isNaN(number)) {
         return number;
     }
-    
+
     return runtime.get(expression);
 }
 
 function equals(left: unknown, right: unknown): boolean {
-    if ((left == null && right == null)) {
+    if (left == null && right == null) {
         return true;
     }
     return left === right;
@@ -152,17 +160,16 @@ function notEquals(left: unknown, right: unknown): boolean {
     return !equals(left, right);
 }
 
-
 function findTernary(expression: string): number {
     let depth = 0;
-    let quote = "";
+    let quote = '';
 
     for (let i = 0; i < expression.length; i++) {
         const char = expression[i];
 
         if (quote) {
             if (char === quote) {
-                quote = "";
+                quote = '';
             }
             continue;
         }
@@ -172,21 +179,17 @@ function findTernary(expression: string): number {
             continue;
         }
 
-        if (char === "(") {
+        if (char === '(') {
             depth++;
             continue;
         }
 
-        if (char === ")") {
+        if (char === ')') {
             depth--;
             continue;
         }
 
-        if (
-            depth === 0 &&
-            char === "?" &&
-            expression[i + 1] !== "."
-        ) {
+        if (depth === 0 && char === '?' && expression[i + 1] !== '.') {
             return i;
         }
     }
@@ -196,10 +199,10 @@ function findTernary(expression: string): number {
 
 function hasPipe(expression: string): boolean {
     let inString = false;
-    let quote = "";
+    let quote = '';
 
     for (const char of expression) {
-        if ((char === '"' || char === "'")) {
+        if (char === '"' || char === "'") {
             if (!inString) {
                 inString = true;
                 quote = char;
@@ -208,7 +211,7 @@ function hasPipe(expression: string): boolean {
             }
         }
 
-        if (!inString && char === "|") {
+        if (!inString && char === '|') {
             return true;
         }
     }
@@ -217,29 +220,27 @@ function hasPipe(expression: string): boolean {
 }
 
 function isUnaryNot(expression: string): boolean {
-    return expression.startsWith("!") &&
-        expression.length > 1 &&
-        expression[1] !== "=";
+    return expression.startsWith('!') && expression.length > 1 && expression[1] !== '=';
 }
 
 function findLogicalOr(expression: string): number {
-    return findOperator(expression, "||");
+    return findOperator(expression, '||');
 }
 
 function findLogicalAnd(expression: string): number {
-    return findOperator(expression, "&&");
+    return findOperator(expression, '&&');
 }
 
 function findOperator(expression: string, operator: string): number {
     let depth = 0;
-    let quote = "";
+    let quote = '';
 
     for (let i = 0; i < expression.length - operator.length + 1; i++) {
         const char = expression[i];
 
         if (quote) {
             if (char === quote) {
-                quote = "";
+                quote = '';
             }
 
             continue;
@@ -250,23 +251,55 @@ function findOperator(expression: string, operator: string): number {
             continue;
         }
 
-        if (char === "(") {
+        if (char === '(') {
             depth++;
             continue;
         }
 
-        if (char === ")") {
+        if (char === ')') {
             depth--;
             continue;
         }
 
-        if (
-            depth === 0 &&
-            expression.slice(i, i + operator.length) === operator
-        ) {
+        if (depth === 0 && expression.slice(i, i + operator.length) === operator) {
             return i;
         }
     }
 
     return -1;
+}
+
+function findRelationalOperator(
+    expression: string,
+): { index: number; operator: string } | undefined {
+    const operators = ['>=', '<=', '>', '<'];
+
+    for (const operator of operators) {
+        const index = expression.indexOf(operator);
+
+        if (index !== -1) {
+            return { index, operator };
+        }
+    }
+
+    return undefined;
+}
+
+function compare(left: unknown, right: unknown, operator: string): boolean {
+    switch (operator) {
+        case '>':
+            return (left as number) > (right as number);
+
+        case '<':
+            return (left as number) < (right as number);
+
+        case '>=':
+            return (left as number) >= (right as number);
+
+        case '<=':
+            return (left as number) <= (right as number);
+
+        default:
+            return false;
+    }
 }

@@ -62,4 +62,34 @@ describe('conditions', () => {
 
         expect(html).toBe('');
     });
+
+    test('greater than comparison works', async () => {
+        const html = await render(
+            `{{ if value > 0 }}YES{{ else }}NO{{ end }}`,
+            { value: 2 },
+            new Map(),
+        );
+
+        expect(html).toBe('YES');
+    });
+
+    test('greater than comparison works when false', async () => {
+        const html = await render(
+            `{{ if value > 0 }}YES{{ else }}NO{{ end }}`,
+            { value: 0 },
+            new Map(),
+        );
+
+        expect(html).toBe('NO');
+    });
+
+    test('less than comparison works', async () => {
+        const html = await render(
+            `{{ if value < 10 }}YES{{ else }}NO{{ end }}`,
+            { value: 5 },
+            new Map(),
+        );
+
+        expect(html).toBe('YES');
+    });
 });
