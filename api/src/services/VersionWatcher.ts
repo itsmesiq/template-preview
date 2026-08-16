@@ -10,7 +10,6 @@ class VersionWatcher {
             })
             .on('all', (_, file) => {
                 this.version = Date.now();
-                console.log(`File changed: ${file}. Version updated to ${this.version}`);
             });
     }
 
