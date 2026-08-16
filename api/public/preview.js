@@ -5,8 +5,6 @@ const mockSelect = document.querySelector('#mock');
 const iframe = document.querySelector('#preview');
 const autoReload = document.querySelector('#autoreload');
 
-let currentVersion = 0;
-
 iframe.addEventListener('load', () => {
     const doc = iframe.contentDocument;
 
@@ -45,16 +43,6 @@ async function loadMocks(projectId) {
 
     if (!response.ok) {
         throw new Error('Failed to load mocks');
-    }
-
-    return response.json();
-}
-
-async function getVersion() {
-    const response = await fetch('/api/version');
-
-    if (!response.ok) {
-        throw new Error('Failed to load version');
     }
 
     return response.json();
@@ -152,14 +140,6 @@ async function checkForUpdates() {
     if (!autoReload.checked) {
         return;
     }
-
-    const { version } = await getVersion();
-
-    if (version === currentVersion) {
-        return;
-    }
-
-    currentVersion = version;
     renderPreview();
 }
 

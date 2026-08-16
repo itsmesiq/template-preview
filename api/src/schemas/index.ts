@@ -19,10 +19,6 @@ export const MocksResponseSchema = z.array(z.string());
 
 export const TemplatesResponseSchema = z.array(z.string());
 
-export const VersionResponseSchema = z.object({
-    version: z.number(),
-});
-
 // Nova versão API
 
 export const CreateProjectSchema = z.object({
