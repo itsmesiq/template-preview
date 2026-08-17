@@ -1,0 +1,94 @@
+{{ ##
+    Description: Renderiza o item de produto dentro do resumo do pedido no email.
+    Params:
+      - product: produto que sera exibido
+    Usage:
+      product_mail product: product
+## }}
+{{~
+  detalhes_produto = ""
+  atributo1 = ""
+  atributo2 = ""
+
+  preco_unit = product?.preco_unitario
+  preco_total = product?.preco_total  
+
+  texto = product?.atributos
+
+  if texto && texto != ""
+    texto = texto | string.split "-"
+    atributos = texto[1] | string.split ","
+
+    if atributos.size > 0
+      atributo_left = atributos[0] | string.split ":"
+      left_label = atributo_left[0] | string.strip
+      left_value = atributo_left[1] | string.strip
+      atributo1 = left_label + ": " + left_value
+      atributo1 = atributo1 | string.downcase | string.capitalizewords
+      detalhes_produto = detalhes_produto + atributo1 + " | "
+    end
+
+    if atributos.size > 1
+      atributo_right = atributos[1] | string.split ":"
+      right_label = atributo_right[0] | string.strip
+      right_value = atributo_right[1] | string.strip
+      atributo2 = right_label + ": " + right_value
+      atributo2 = atributo2 | string.downcase | string.capitalizewords
+      detalhes_produto = detalhes_produto + atributo2 + " | "
+    end
+  end  
+
+  if preco_unit != ""
+    preco_unit = preco_unit | string.strip | string.split "."
+    preco_real = preco_unit[0] | string.strip
+    preco_centavos = preco_unit[1] | string.strip
+
+    if preco_centavos.size == 1
+      preco_centavos = preco_centavos + "0"
+    end
+
+    preco_unit = "R$ " + preco_real + "," + preco_centavos
+    detalhes_produto = detalhes_produto + preco_unit + " | "
+  end  
+
+  if product?.quantidade && product?.quantidade != ""
+    detalhes_produto = detalhes_produto + product?.quantidade + " und."
+  end 
+  
+  if preco_total != ""
+    preco_total = preco_total | string.strip | string.split "."
+    preco_real = preco_total[0] | string.strip
+    preco_centavos = preco_total[1] | string.strip
+
+    if preco_centavos.size == 1
+      preco_centavos = preco_centavos + "0"
+    end
+
+    preco_total = "R$ " + preco_real + "," + preco_centavos
+  end    
+
+~}}
+<tr>
+  <td align="left" style="width: 1%; padding: 12px 0;">
+    <img
+      src="{{ product?.imagem }}"
+      alt="{{ product?.nome }}"
+      width="80"
+      height="120"
+      style="display: block; object-fit: cover;"
+    />
+  </td>
+  <td align="left" style="padding: 12px 24px;">
+    <div style="margin: 0; font-size: 14px; font-weight: 300; line-height: 140%; color: #000; text-transform: uppercase;">{{ product?.nome }}</div>
+    {{ if detalhes_produto != "" }}
+    <div style="margin: 8px 0 0; font-size: 12px; font-weight: 300; line-height: 180%; color: #4B5563;">
+      {{ detalhes_produto }}
+    </div>
+    {{ end }}
+  </td>
+  <td align="right" style="padding: 12px 0;">
+    <div style="margin: 0; font-size: 14px; font-weight: 600; line-height: 140%; color: #000; text-transform: uppercase;">
+      {{ preco_total }}
+    </div>
+  </td>
+</tr>

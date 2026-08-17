@@ -1,0 +1,32 @@
+[
+    {
+        "name": "header_mail",
+        "contentFile": "header_mail.html",
+        "params": []
+    },
+    {
+        "name": "footer_mail",
+        "contentFile": "footer_mail.html",
+        "params": []
+    },
+    {
+        "name": "order_resume_full_mail",
+        "contentFile": "order_resume_full_mail.html",
+        "params": []
+    },
+    {
+        "name": "order_resume_split_mail",
+        "contentFile": "order_resume_split_mail.html",
+        "params": []
+    },
+    {
+        "name": "product_full_mail",
+        "contentFile": "product_full_mail.html",
+        "params": [
+            {
+                "name": "product",
+                "required": true
+            }
+        ]
+    }
+]

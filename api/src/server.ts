@@ -1,0 +1,58 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import multipart from '@fastify/multipart';
+import fastifyStatic from '@fastify/static';
+import Fastify from 'fastify';
+import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
+import { ZodTypeProvider } from 'fastify-type-provider-zod';
+
+import { registerCors } from './lib/cors.js';
+import { logger } from './lib/logger.js';
+import { registerSwagger } from './lib/swagger.js';
+import authPlugin from './plugins/auth.js';
+import { registerErrorHandler } from './plugins/errorHander.js';
+import { registerRoutes } from './routes/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = Fastify({
+    logger,
+}).withTypeProvider<ZodTypeProvider>();
+
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
+
+await registerCors(app);
+
+registerErrorHandler(app);
+
+await registerSwagger(app);
+
+await app.register(multipart, {
+    attachFieldsToBody: true,
+    limits: {
+        files: 1,
+        fileSize: 5 * 1024 * 1024, // 5MB
+    },
+});
+
+await app.register(fastifyStatic, {
+    root: path.join(__dirname, '../public'),
+});
+
+await app.register(authPlugin);
+
+await registerRoutes(app);
+
+try {
+    await app.listen({
+        port: 3000,
+    });
+
+    console.log('🚀 http://localhost:3000');
+} catch (err) {
+    app.log.error(err);
+    process.exit(1);
+}

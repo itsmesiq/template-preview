@@ -1,0 +1,167 @@
+{
+  "configuracao": {
+    "nome_ecommerce": "Loja Exemplo",
+    "url_carrinho": "https://lojaexemplo.checkout.fbits.store/",
+    "url_ecommerce": "https://www.lojaexemplo.com.br/",
+    "url_opt_in": "",
+    "url_recursos": "https://lojaexemplo.recursos.fbits.store/"
+  },
+  "pedido": {
+    "data": "15/08/2026",
+    "data_pagamento": "15/08/2026",
+    "hora": "14:32:18",
+    "pontos_debito": "",
+    "valor_credito_fidelidade": "",
+    "valor_desconto": "25.0",
+    "valor_servico": "0,00",
+    "valor_sub_total": "349.0",
+    "valor_total": "336.17",
+    "contacorrente": "",
+    "carrinho_id": "A1B2C3D4-5678-90AB-CDEF-1234567890AB",
+    "formapagamento": [
+      {
+        "imagem": "",
+        "nome": "Gateway - Pix",
+        "numero_parcelas": "1",
+        "parcelamento_formatado": "",
+        "tipo": "",
+        "valor_parcelas": "",
+        "link_pagamento": "",
+        "boleto": {
+          "url": ""
+        },
+        "pix": {
+          "qrcode_link_pagamento": "https://example.com/pix/qrcode-exemplo.svg",
+          "qrcode_imagem_url": "",
+          "codigo_qrcode": "00020101021226800014BR.GOV.BCB.PIX2558pix.exemplo.com.br/qr/v2/12345678-abcd-4321-abcd-123456789abc5204000053039865802BR5918LOJA EXEMPLO LTDA6008SAOPAULO62070503***6304ABCD",
+          "dt_expiracao_qr_code": "16/08/2026 14:32:19"
+        },
+        "deposito_bancario": {
+          "url": ""
+        }
+      }
+    ],
+    "valor_forma_pagamento": "",
+    "pedido_id": "725391",
+    "produtos": [
+      {
+        "valor_adicional_produto": [
+          {
+            "texto": "",
+            "valor": ""
+          }
+        ],
+        "atributos": "",
+        "digital": "",
+        "embalagens": "",
+        "id": "583214",
+        "imagem": "https://i.pinimg.com/originals/d7/d0/16/d7d0162b18d0058de38d082e3de1c4bb.jpg",
+        "nome": "Vestido curto modelo Aurora Verde",
+        "personalizacoes": "",
+        "preco_total": "349.0",
+        "preco_unitario": "349.0",
+        "primeiro_prazo": "",
+        "quantidade": "1",
+        "rastreamento": "",
+        "segundo_prazo": "",
+        "seller": "",
+        "sku": "EXMP583214",
+        "url_alias": "",
+        "url_produto_id": "",
+        "valor_personalizacao": "0,00",
+        "situacao": {
+          "pedido_produto_id": "",
+          "situacao_pedido_id": "",
+          "situacao_nome": "Pago"
+        }
+      }
+    ],
+    "promocao": [
+      {
+        "observacao": "Cupom de desconto de teste",
+        "valor": "25,00"
+      }
+    ],
+    "usuario": {
+      "nome": "Cliente Exemplo",
+      "primeiro_nome": "Cliente",
+      "email": "cliente.exemplo@example.com",
+      "usuario_master_nome": "Usuário Master Exemplo",
+      "usuario_master_id": "98765"
+    },
+    "formulas": {
+      "novo_calculo": [
+        {
+          "nome": "",
+          "valor": ""
+        }
+      ]
+    },
+    "frete": {
+      "endereco": {
+        "bairro": "Centro",
+        "cep": "01000-000",
+        "cidade": "São Paulo",
+        "complemento": "",
+        "destinatario": "Cliente Exemplo",
+        "estado": "SP",
+        "logradouro": "Rua Exemplo",
+        "numero": "100"
+      },
+      "entrega_contrato": "",
+      "entrega_estimativa": "",
+      "entrega_estimativa_data": "",
+      "prazo_em_dias": "",
+      "prazo_em_horas": "",
+      "tipo_prazo_em_horas": "false",
+      "nome_cotacao": "Transportadora Exemplo",
+      "promocaofrete": "0",
+      "texto_estimativa": "",
+      "texto_indicativo": "",
+      "valor_frete": "12.17",
+      "nome_grupo_frete": ""
+    },
+    "personalizacao": {
+      "valor_personalizacoes": ""
+    },
+    "aliquota": {
+      "texto_aliquotas": "TextoAliquotas",
+      "valor_aliquotas": "R$ 0,00"
+    },
+    "embalagem": {
+      "valor_embalagens": "0,00"
+    },
+    "assinatura": {
+      "data": "15/08/2026",
+      "grupo_assinatura": {
+        "descricao": "Descrição do grupo de assinatura",
+        "nome": "Nome do grupo de assinatura"
+      },
+      "id": "0",
+      "texto_recorrencia": "TextoRecorrencia",
+      "valor_total": "0,00"
+    },
+    "rastreamento": {
+      "rastreamento": "BR123456789EX",
+      "url": "",
+      "nota_fiscal": "0000000000000000000055024000000000000000",
+      "url_nfe": "https://example.com/nfe/123456",
+      "serie_nfe": "1",
+      "chave_acesso_nfe": "00000000000000000000000000000000000000000000"
+    }
+  },
+  "evento": {
+    "data_evento": "25/08/2026",
+    "endereco": {
+      "endereco1": "",
+      "endereco2": ""
+    },
+    "nome_dono_evento": "Pessoa Exemplo",
+    "quantida_de_dias_para_evento": "10",
+    "titulo": "Evento de Exemplo",
+    "tipo_evento": {
+      "titulo": "Aniversário"
+    },
+    "tipo_usuario": "Dono"
+  }
+}

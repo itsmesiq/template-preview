@@ -1,0 +1,68 @@
+{{~
+    primeiro_nome = pedido?.usuario?.nome ?? pedido?.usuario?.primeiro_nome ?? pedido?.pedidos_split_agregados?.usuario?.primeiro_nome ?? pedido?.pedidos_split_agregados?.usuario?.nome ?? "Cliente"
+    numero_pedido = pedido?.pedido_id ?? pedido?.id ?? "-"
+
+    is_split = pedido?.pedidos_split_agregados != null
+    pedidos_ids = pedido?.pedidos_split_agregados?.pedidos | array.map "pedido_id"
+    pedidos_ids_str = pedidos_ids | array.join ", #"
+~}}
+
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <table role="Newsletter" aria-label="Awake" lang="en" dir="ltr" border="0" width="100%" cellpadding="0" cellspacing="0" style="font-size:medium;font-size:max(16px,1rem);font-family: 'Poppins',Arial, Helvetica, sans-serif;">
+        <tbody>
+            <tr>
+                <td align="center" valign="top" style="background-color: #f6f6f6;">
+                    <div style="max-width:620px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;background-color: #FFF;">
+                        <!-- HEADER -->
+                        {{header_mail}}
+                        <!-- END HEADER -->
+
+                        <!-- MAIN -->
+                        <table border="0" width="620" cellpadding="0" cellspacing="0" style="width:620px; max-width:620px; margin: 40px 0 24px; padding: 10px;">
+                            <tbody>
+                                <tr align="center">
+                                    <td>
+                                        <h1 style="font-size: 20px; font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; color: #000; margin: 0; padding: 0;">Seu pedido foi confirmado.</h1>
+                                    </td>
+                                </tr>
+                                <tr align="center">
+                                    <td style="padding-top: 4px; font-size: 14px; font-weight: 300; letter-spacing: 0.42px; text-transform: uppercase; color: rgba(0, 0, 0, 0.60);">
+                                        {{ if is_split }}
+                                        <p style="margin: 0;">#{{ pedidos_ids_str }}</p>
+                                        {{ else }}
+                                        <p style="margin: 0;">#{{ pedido?.pedido_id }}</p>
+                                        {{ end }}
+                                    </td>
+                                </tr>
+                                <tr align="center">
+                                    <td>
+                                        <div style="max-width: 548px;">
+                                            <p>Obrigada por comprar conosco, <b>{{ primeiro_nome }}</b>!</p>
+                                            <p>Recebemos seu pedido com sucesso. Você será avisada por e-mail a cada atualização das etapas de seu pedido.</p>
+                                            {{if is_split }}
+                                            <p>Por motivos logísticos, seu pedido foi separado em {{ pedidos_ids.count }} envios distintos.</p>
+                                            {{ end }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        {{ if is_split }}
+                        {{ order_resume_split_mail }}
+                        {{ else }}
+                        {{ order_resume_full_mail }}
+                        {{ end }}
+                        <!-- END MAIN -->
+
+                        <!-- FOOTER -->
+                        {{footer_mail}}
+                        <!-- END FOOTER -->
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>

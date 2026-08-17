@@ -1,2 +1,6 @@
+packages:
+  - "api"
+  - "web"
 allowBuilds:
-  esbuild: true
+  esbuild: false
+  unrs-resolver: false
